@@ -4,9 +4,6 @@ This project implements an Autonomous Intersection Management (AIM) for Connecte
 
 To run FIACRE scripts (.fcr files), use a Linux system or a Linux distribution for Windows. In the second case do the following steps:
 
-1 - Access the folder containing the file 'script.sh'.
-2 - Open Power Shell in admin mode (Alt+F+S+A)
-3 - Type BASH at the command line to start ubuntu
-4 - Type './script.sh file_name.fcr' without ''
+1 - Access the folder containing the file 'script.sh'; 2 - Open Power Shell in admin mode (Alt+F+S+A); 3 - Type BASH at the command line to start ubuntu; 4 - Type './script.sh file_name.fcr' without ''
 
 After compilation, several files will be generated. The main files are a .tts folder (with petri net and time logic files), a .ktz file (generates reachability graph), and info.txt (contains all state and transition information). The other files are .txt files for use in Python visualization.
