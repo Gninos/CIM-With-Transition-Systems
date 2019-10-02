@@ -1,0 +1,93 @@
+/* Cruzamento 04 veículos
+ 0 = slot com rua, 1 = slot com calçada, <>1 = slot com carro
+*/
+
+/* Constantes */
+const yxf : nat is 5 /* indice final em x,y das matrizes do grid */
+const c   : nat is 2 /*tamanho da calçada*/
+const p   : nat is 2 /*número de pistas*/
+const nc  : nat is 4 /*número de carros no grid */
+
+
+/* Cria as posições (x,y) possíveis*/
+type RangeYX is 0..yxf /* valores aceitáveis para y,x*/
+type Position is record y : RangeYX, x : RangeYX
+   
+/* Cria as posições iniciais (y,x) de cada carro*/
+const p1 : Position is {y = 1, x = 3}
+const p2 : Position is {y = 1, x = 2}
+const p3 : Position is {y = 2, x = 1}
+const p4 : Position is {y = 3, x = 1}
+
+/* Cria os destinos (y,x) de cada carro*/
+const d1 : Position is {y = 1, x = 3}
+const d2 : Position is {y = 1, x = 2}
+const d3 : Position is {y = 2, x = 1}
+const d4 : Position is {y = 3, x = 1}
+
+
+function ff (y: type): type is
+  u: nat := 
+  begin
+      if u = 0 then
+
+
+/* Processo: os carros podem ir apenas para frente, podem ir para esquerda e direita */
+
+process Cav is
+   states move, done
+   
+   from move
+      select
+         on a[2][4] = 3 and a[4][3] = 2; to done /* destinos */
+   
+      /* moves */
+      [] on a[y][x]=2 and a[y][x-1]=0; a[y][x-1]:=2; a[y][x]:=0; x:=x-1; to move
+      [] on a[y][x]=2 and a[y+1][x]=0; a[y+1][x]:=2; a[y][x]:=0; y:=y+1; to move
+      [] on a[y][x]=2 and a[y][x+1]=0; a[y][x+1]:=2; a[y][x]:=0; x:=x+1; to move
+
+      end
+
+
+process CentralUnit is
+   states play, stop
+   
+   from play
+      select
+        on ; to stop
+      []   ; to play
+      []   ; to play
+      []   ; to play
+      []   ; to play
+
+      
+      to play
+
+
+component intersection is
+   var a : array 6 of array 6 of nat :=  [[1,1,1,1,1,1], /* grid 6x6 */
+                                          [1,1,5,2,1,1],
+                                          [1,3,0,0,0,1],
+                                          [1,4,0,0,0,1],
+                                          [1,1,0,0,1,1],
+                                          [1,1,1,1,1,1]]
+       movement :  
+
+
+ par
+         CentralUnit(&a)
+      || Cav(&a)
+      || Cav(&a)
+      || Cav(&a)
+      || Cav(&a)
+      end
+
+/* Entry point */
+intersection
+
+
+/* Properties */
+
+property impossible is ltl ([] not (intersection/state done))
+assert impossible
+
