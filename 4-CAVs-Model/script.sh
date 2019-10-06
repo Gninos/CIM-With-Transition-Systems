@@ -13,7 +13,6 @@ frac ${project}.fcr ${project}.tts
 make -f ${FIACREPATH}/Makefile ${project}
 tina ${project}.tts ${project}.ktz
 tina ${project}.tts ${project}.aut
-tina -d ${project}.tts > info.fcr
 tina -d ${project}.tts > info.txt
 selt ${project}.ktz ${project}.tts/${project}.ltl -b -S ${project}.scn
 cat ${project}.aut>reach_graph.txt
