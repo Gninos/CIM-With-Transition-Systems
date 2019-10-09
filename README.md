@@ -16,8 +16,18 @@ After compilation, several files will be generated. The main files are a .tts fo
 
 ## The model
 
-Basically, all the models here have an 8x8 array grid as you can see below:
+Basically, all Fiacre models have an 8x8 array grid as you can see below:
 
 ![grid](https://user-images.githubusercontent.com/50747436/66518370-72f5b500-eabb-11e9-9360-ee2aeeb87d89.png)
 
-0's represent the street cells, 1's are the sidewalk, and the other numbers will be our CAVs. We have a cross intersection, so the CAVs can start from four different roads (A, B, C and D). Each road has four lanes.
+0's represent the street cells, 1's are the sidewalk, and the other numbers will be our CAVs. We have a cross intersection, so the CAVs can start from four different roads (A, B, C and D). Each road has four lanes. In the matplotlib each CAVs is represented by colored squares.
+
+The transitions will follow some constraints to play realistic movements. For instance, if the yellow CAV is driving in a straight line, it can't turn over perpendicularly or go back to the same slot that it was. Also, it is not allowed to go ahead, because there is another CAV in front of it.  So, in this situation, the yellow CAV can only turn diagonally.
+
+![mov1](https://user-images.githubusercontent.com/50747436/66518839-7c335180-eabc-11e9-8700-3f9543e9c662.JPG)
+
+On the other hand, if the yellow CAV is making a diagonal movement, it has more options to choose from, as can be seen below.
+
+![mov2](https://user-images.githubusercontent.com/50747436/66518844-7fc6d880-eabc-11e9-8ffb-2d6353072c74.JPG)
+
+The model has a starvation-free property when all the CAVs have the opportunity to move in the round. Moreover, the model allows the possibility of a CAV to choose to pause and pass its turn.
