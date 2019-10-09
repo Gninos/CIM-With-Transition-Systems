@@ -13,3 +13,11 @@ To facilitate the compilation of the Fiacre scripts (.fcr files), you may use a 
 - Type './script.sh file_name.fcr' without ''
 
 After compilation, several files will be generated. The main files are a .tts folder (with petri net and time logic files), a .ktz file (this one generates the reachability graph data), and info.txt (it contains all the state and transition information you will need). The other files are .txt files that will be used to generate views in Python.
+
+## The model
+
+Basically, all the models here have an 8x8 array grid as you can see below:
+
+![grid](https://user-images.githubusercontent.com/50747436/66518370-72f5b500-eabb-11e9-9360-ee2aeeb87d89.png)
+
+0's represent the street cells, 1's are the sidewalk, and the other numbers will be our CAVs. We have a cross intersection, so the CAVs can start from four different roads (A, B, C and D). Each road has four lanes.
