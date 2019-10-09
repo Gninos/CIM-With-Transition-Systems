@@ -32,4 +32,4 @@ On the other hand, if the yellow CAV is making a diagonal movement, it has more 
 
 These constraints ensure that there will be no abrupt movements.
 
-The model has a starvation-free property that makes all the CAVs to have the opportunity to move in the round. Moreover, the model allows the possibility of a CAV to choose to pause and pass its turn.
+A round ends when all cars have had a chance to move. So, the model has a starvation-free property that makes all the CAVs to have the opportunity to move in the round. Moreover, the it allows the possibility of a CAV to choose to pause and pass its turn.
