@@ -24,10 +24,10 @@ Basically, all Fiacre models have an 8x8 array grid as you can see below:
 
 The transitions will follow some constraints to play realistic movements. For instance, if the yellow CAV is driving in a straight line, it can't turn over perpendicularly or go back to the same slot that it was. Also, it is not allowed to go ahead, because there is another CAV in front of it.  So, in this situation, the yellow CAV can only turn diagonally.
 
-![mov1](https://user-images.githubusercontent.com/50747436/66518839-7c335180-eabc-11e9-8700-3f9543e9c662.JPG)
+![mov1](https://user-images.githubusercontent.com/50747436/66520083-e220d880-eabe-11e9-957f-1353b0c2255a.png)
 
 On the other hand, if the yellow CAV is making a diagonal movement, it has more options to choose from, as can be seen below.
 
-![mov2](https://user-images.githubusercontent.com/50747436/66518844-7fc6d880-eabc-11e9-8ffb-2d6353072c74.JPG)
+![mov2](https://user-images.githubusercontent.com/50747436/66520087-e64cf600-eabe-11e9-9285-ce81f210b0aa.png)
 
-The model has a starvation-free property when all the CAVs have the opportunity to move in the round. Moreover, the model allows the possibility of a CAV to choose to pause and pass its turn.
+The model has a starvation-free property that makes all the CAVs to have the opportunity to move in the round. Moreover, the model allows the possibility of a CAV to choose to pause and pass its turn.
