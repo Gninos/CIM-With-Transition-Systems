@@ -30,4 +30,6 @@ On the other hand, if the yellow CAV is making a diagonal movement, it has more 
 
 ![mov2](https://user-images.githubusercontent.com/50747436/66520087-e64cf600-eabe-11e9-9285-ce81f210b0aa.png)
 
+These constraints ensure that there will be no abrupt movements.
+
 The model has a starvation-free property that makes all the CAVs to have the opportunity to move in the round. Moreover, the model allows the possibility of a CAV to choose to pause and pass its turn.
