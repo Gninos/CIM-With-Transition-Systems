@@ -33,3 +33,22 @@ On the other hand, if the yellow CAV is making a diagonal movement, it has more 
 These constraints ensure that there will be no abrupt movements.
 
 A round ends when all cars have had a chance to move. So, the model has a starvation-free property that makes all the CAVs to have the opportunity to move in the round. Moreover, the it allows the possibility of a CAV to choose to pause and pass its turn.
+
+## The main goal
+
+The main goal is to accomplish a final state where the grid doesn't have any car as fast as possible without collisions between the CAVs. Each cell has eight neighbor cells, so there are eight possible movements.  As a result of this, each car has a token "i" that updates every time it makes a transition. These tokens have a range of 0 to 8. 
+
+          0 = initial state;
+          1 = when the car rides east  (x+);                     
+          2 = when the car rides west  (x-);              
+          3 = when the car rides south (y+);             
+          4 = when the car rides north (y-);           
+          5 = when the car rides northwest (y-,x-);             
+          6 = when the car rides northeast (y-,x+);               
+          7 = when the car rides southeast (y+,x-);  
+          8 = when the car rides southwest (y+,x+)
+          
+The model also has a token "d" (range of 0 to n - number of vehicles, 0 = initial state) that changes whenever a car can switch its state, so it always stores the information about which car had the last opportunity to move. Another variable of the system is "out", that wares binary information. If a specific car has left the grid, it stores the value 1. Otherwise, it stores the value 0.
+
+We can call each combination of all the variables i, d, position x, out, position y, and the array a, as a marking (state) of the system. For instance, the following states are, respectively, the initial and the final state of the model.
+
