@@ -96,7 +96,7 @@ process play is
             ((a[v1y][v1x] = 2 and a[v1y+1][v1x] = 0 and v1y <yf) 
           or (a[v3y][v3x] = 4 and a[v3y+1][v3x] = 0 and v3y <yf)))
 
-         or ((a[v2y][v2x] = 3 and a[v2y][v2x+1] <> 0 and (a[v2y+1][v2x+1] <> 0 and a[v2y-1][v2x+1] <> 0) and d = 1 and v2x < yf) and
+         or ((a[v2y][v2x] = 3 and a[v2y][v2x+1] <> 0 and (a[v2y+1][v2x+1] <> 0 and a[v2y-1][v2x+1] <> 0) and d = 1 and v2x < xf) and
             ((a[v1y][v1x] = 2 and a[v1y+1][v1x] = 0 and v1y <yf) 
           or (a[v3y][v3x] = 4 and a[v3y+1][v3x] = 0 and v3y <yf)))
          
@@ -104,7 +104,7 @@ process play is
             ((a[v1y][v1x] = 2 and a[v1y+1][v1x] = 0 and v1y <yf) 
           or (a[v3y][v3x] = 4 and a[v3y+1][v3x] = 0 and v3y <yf))) 
 
-         or ((a[v4y][v4x] = 5 and a[v4y][v4x+1] <> 0 and (a[v4y+1][v4x+1] <> 0 and a[v4y-1][v4x+1] <> 0) and d = 3 and v4x < yf) and 
+         or ((a[v4y][v4x] = 5 and a[v4y][v4x+1] <> 0 and (a[v4y+1][v4x+1] <> 0 and a[v4y-1][v4x+1] <> 0) and d = 3 and v4x < xf) and 
             ((a[v1y][v1x] = 2 and a[v1y+1][v1x] = 0 and v1y <yf) 
           or (a[v3y][v3x] = 4 and a[v3y+1][v3x] = 0 and v3y <yf))); 
 
