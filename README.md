@@ -36,24 +36,9 @@ A round ends when all cars have had a chance to move. So, the model has a starva
 
 ## The main goal
 
-The main goal is to accomplish a final state where the grid doesn't have any car as fast as possible without collisions between the CAVs. Each cell has eight neighbor cells, so there are eight possible movements.  As a result of this, each car has a token "i" that updates every time it makes a transition. These tokens have a range of 0 to 8. 
+The main goal is to accomplish a final state where the grid doesn't have any car as fast as possible without collisions between the CAVs. The model has a token "d" (range of 0 to n - number of vehicles, 0 = initial state) that changes whenever a car can switch its state, so it always stores the information about which car had the last opportunity to move. Another variable of the system is "out", that wares binary information. If a specific car has left the grid, it stores the value 1. Otherwise, it stores the value 0.
 
-          0 = initial state;
-          1 = when the car rides east  (x+);                     
-          2 = when the car rides west  (x-);              
-          3 = when the car rides south (y+);             
-          4 = when the car rides north (y-);           
-          5 = when the car rides northwest (y-,x-);             
-          6 = when the car rides northeast (y-,x+);               
-          7 = when the car rides southeast (y+,x-);  
-          8 = when the car rides southwest (y+,x+)
-          
-The model also has a token "d" (range of 0 to n - number of vehicles, 0 = initial state) that changes whenever a car can switch its state, so it always stores the information about which car had the last opportunity to move. Another variable of the system is "out", that wares binary information. If a specific car has left the grid, it stores the value 1. Otherwise, it stores the value 0.
+We can call each combination of all the variables d,  out, position x, position y, and the array a, as a marking (state) of the system. For instance, the following states are, respectively, the initial and the final state for a model with four CAVs.
 
-We can call each combination of all the variables i, d, position x, out, position y, and the array a, as a marking (state) of the system. For instance, the following states are, respectively, the initial and the final state for a model with four CAVs.
-
-![state0](https://user-images.githubusercontent.com/50747436/66558410-e1715c00-eb29-11e9-8b84-978d29b07bd3.JPG)
-
-![statef](https://user-images.githubusercontent.com/50747436/66558424-e59d7980-eb29-11e9-8b0a-286912129703.JPG)
 
 Even with the constraints, there are many possible combinations. The shortest_path function from NetworkX library filters the shortest sequence of transitions between the initial state and the desired final state.
