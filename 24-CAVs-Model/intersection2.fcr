@@ -1,0 +1,536 @@
+/* Intersection with 24 CAVs
+ 0 = street cell, 1 = sidewalk cell, <>1 = vehicle cell
+*/
+
+/* Constants */
+const xf : nat is 7 /* final index for coordinate x */
+const yf : nat is 7 /* final index for coordinate x */
+const f  : nat is 2 /* sidewalk size = width occupied by number 1 in matrix a */
+const p  : nat is 4 /* number of lanes on each road in grid */
+const n  : nat is 24 /* number of cars on the grid */
+
+/* Types of variables that define the range of x and y positions*/
+type posY is 0..yf
+type posX is 0..xf 
+
+/* Process: A car moving in a straight line can move forward in the same direction as it is or make diagonal movements. A car moving diagonally can move to any cell except returning to the previous cell, or make a sudden move at + 135 ° or -135 ° */
+
+process play is
+   states move, done
+       
+    var 
+        /* Token "d" indicates which car had the chance to move last in the round.
+        A round ends when all cars have had a chance to move.
+          
+        0 = initial state, 1..n are bound in order of priority. For example: 1 =
+        first car to move in a round, n = last car to move in a round
+        
+        This order is implemented for the system to have the starvation-free property: the first car (d = 1) only moves if it is the first move of the control grid (d = 0) or after the last car (d = n) In walking, the second car (d = 2) only moves after the first car (d = 1) has walked, and so on.
+        In this model, the orders were set manually, in the future a conditional selection will be added.*/
+        
+        d : 0..n  := 0, 
+        
+        /* token "out(n)" is binary: 
+          true (1)  = carro n has left the grid
+          false (0) = carro n is still on the grid*/
+
+        out1, out2, out3, out4, out5, out6, out7, out8, out9, out10, out11, out12, out13, out14, out15, out16, out17, out18, out19, out20, out21, out22, out23, out24 : 0..1 :=0,  
+
+                     
+       
+       /* Initial y and x positions of each car*/
+       v1y   : posY :=1, v1x   : posX :=2, /* number 2  on the grid */
+       v2y   : posY :=1, v2x   : posX :=3, /* number 3  on the grid */
+       v3y   : posY :=1, v3x   : posX :=4, /* number 4  on the grid */
+       v4y   : posY :=1, v4x   : posX :=5, /* number 5  on the grid */
+       v5y   : posY :=0, v5x   : posX :=4, /* number 6  on the grid */
+       v6y   : posY :=0, v6x   : posX :=5, /* number 7  on the grid */
+       v7y   : posY :=2, v7x   : posX :=1, /* number 8  on the grid */
+       v8y   : posY :=3, v8x   : posX :=1, /* number 9  on the grid */
+       v9y   : posY :=4, v9x   : posX :=1, /* number 10 on the grid */
+       v10y  : posY :=5, v10x  : posX :=1, /* number 11 on the grid */
+       v11y  : posY :=2, v11x  : posX :=0, /* number 12 on the grid */
+       v12y  : posY :=3, v12x  : posX :=0, /* number 13 on the grid */
+       v13y  : posY :=6, v13x  : posX :=2, /* number 14 on the grid */
+       v14y  : posY :=6, v14x  : posX :=3, /* number 15 on the grid */
+       v15y  : posY :=6, v15x  : posX :=4, /* number 16 on the grid */
+       v16y  : posY :=6, v16x  : posX :=5, /* number 17 on the grid */
+       v17y  : posY :=7, v17x  : posX :=2, /* number 18 on the grid */
+       v18y  : posY :=7, v18x  : posX :=3, /* number 19 on the grid */
+       v19y  : posY :=2, v19x  : posX :=6, /* number 20 on the grid */
+       v20y  : posY :=3, v20x  : posX :=6, /* number 21 on the grid */
+       v21y  : posY :=4, v21x  : posX :=6, /* number 22 on the grid */
+       v22y  : posY :=5, v22x  : posX :=6, /* number 23 on the grid */
+       v23y  : posY :=2, v23x  : posX :=7, /* number 24 on the grid */
+       v24y  : posY :=3, v24x  : posX :=7, /* number 25 on the grid */
+
+             
+                                       /* x-> 0 -1 -2 -3 -4 -5 -6 -7*/
+                                                  /*    A     */                /*y*/
+       a : array 8 of array 8 of nat :=    [[ 1, 1, 0, 0, 6, 7, 1, 1],          /*0*/
+                                            [ 1, 1, 2, 3, 4, 5, 1, 1],          /*1*/
+                                            [12, 8, 0, 0, 0, 0,20,24],          /*2*/ 
+                                    /* B */ [13, 9, 0, 0, 0, 0,21,25], /* C */  /*3*/
+                                            [ 0,10, 0, 0, 0, 0,22, 0],          /*4*/
+                                            [ 0,11, 0, 0, 0, 0,23, 0],          /*5*/
+                                            [ 1, 1,14,15,16,17, 1, 1],          /*6*/
+                                            [ 1, 1,18,19, 0, 0, 1, 1]]          /*7*/
+                                                  /*     D    */ 
+
+      
+        
+
+      from move
+      select /* Todos os carros fora do grid*/
+         on  out1  = 1 and out2   = 1 and out3  = 1 and out4   = 1 and out5  = 1 and out6  = 1 
+         and out7  = 1 and out8   = 1 and out9  = 1 and out10  = 1 and out11 = 1 and out12 = 1
+         and out13 = 1 and out14  = 1 and out15 = 1 and out16  = 1 and out17 = 1 and out18 = 1
+         and out19 = 1 and out20  = 1 and out21 = 1 and out22  = 1 and out23 = 1 and out24 = 1;
+         v1x  := 0; v1y  := 0; v2x  := 0; v2y  := 0; v3x  := 0; v3y  := 0;
+         v4x  := 0; v4y  := 0; v5x  := 0; v5y  := 0; v6x  := 0; v6y  := 0;
+         v7x  := 0; v7y  := 0; v8x  := 0; v8x  := 0; v9x  := 0; v9x  := 0;
+         v10x := 0; v10y := 0; v11x := 0; v11y := 0; v12x := 0; v12y := 0;
+         v13x := 0; v13y := 0; v14x := 0; v14y := 0; v15x := 0; v15y := 0;
+         v16x := 0; v16y := 0; v17x := 0; v17y := 0; v18x := 0; v18y := 0;
+         v19x := 0; v19y := 0; v20x := 0; v20y := 0; v21x := 0; v21y := 0;
+         v22x := 0; v22y := 0; v23x := 0; v23y := 0; v24x := 0; v24y := 0; 
+         d:= 0; 
+         to done
+       
+
+       /* ----------------------This transition avoids Deadlock----------------------------------*/
+      /* When cars have no move option they wait and turn to the next*/      
+         /* A */ 
+      [] on ((a[v2y][v2x] = 3 and a[v2y+1][v2x] <> 0 and (v2x+1 > xf-f or v2x-1 < f) and d = 4 and v2y < yf))
+
+         or ((a[v2y][v2x] = 3 and a[v2y+1][v2x] <> 0 and (a[v2y+1][v2x+1] <> 0 and a[v2y+1][v2x-1] <> 0) and d = 4 and v2y < yf))
+
+         or ((a[v3y][v3x] = 4 and a[v3y+1][v3x] <> 0 and (v3x+1 > xf-f or v3x-1 < f) and d = 8 and v3y < yf))
+
+         or ((a[v3y][v3x] = 4 and a[v3y+1][v3x] <> 0 and (a[v3y+1][v3x+1] <> 0 and a[v3y+1][v3x-1] <> 0) and d = 8 and v3y < yf))
+         
+         or ((a[v4y][v4x] = 5 and a[v4y+1][v4x] <> 0 and (v4x+1 > xf-f or v4x-1 < f) and d = 12 and v4y < yf))
+
+         or ((a[v4y][v4x] = 5 and a[v4y+1][v4x] <> 0 and (a[v4y+1][v4x+1] <> 0 and a[v4y+1][v4x-1] <> 0) and d = 12 and v4y < yf))
+
+         or ((a[v5y][v5x] = 6 and a[v5y+1][v5x] <> 0 and (v5x+1 > xf-f or v5x-1 < f) and d = 16 and v5y < yf))
+
+         or ((a[v5y][v5x] = 6 and a[v5y+1][v5x] <> 0 and (a[v5y+1][v3x+1] <> 0 and a[v5y+1][v5x-1] <> 0) and d = 16 and v5y < yf))
+
+         or ((a[v6y][v6x] = 7 and a[v6y+1][v6x] <> 0 and (v6x+1 > xf-f or v6x-1 < f) and d = 20 and v6y < yf))
+
+         or ((a[v6y][v6x] = 7 and a[v6y+1][v6x] <> 0 and (a[v6y+1][v6x+1] <> 0 and a[v6y+1][v6x-1] <> 0) and d = 20 and v6y < yf))
+
+         /* B */
+
+         or ((a[v7y][v7x] = 8 and a[v7y][v7x+1] <> 0 and (v7y+1 > yf-f or v7y-1 < f) and d = 1 and v7x < xf))
+
+         or ((a[v7y][v7x] = 8 and a[v7y][v7x+1] <> 0 and (a[v7y+1][v7x+1] <> 0 and a[v7y-1][v7x+1] <> 0) and d = 1 and v7x < xf))
+
+         or ((a[v8y][v8x] = 9 and a[v8y][v8x+1] <> 0 and (v8y+1 > yf-f or v8y-1 < f) and d = 5 and v8x < xf))
+
+         or ((a[v8y][v8x] = 9 and a[v8y][v8x+1] <> 0 and (a[v8y+1][v8x+1] <> 0 and a[v8y-1][v8x+1] <> 0) and d = 5 and v8x < xf))
+
+         or ((a[v9y][v9x] = 10 and a[v9y][v9x+1] <> 0 and (v9y+1 > yf-f or v9y-1 < f) and d = 9 and v9x < xf))
+
+         or ((a[v9y][v9x] = 10 and a[v9y][v9x+1] <> 0 and (a[v9y+1][v9x+1] <> 0 and a[v9y-1][v9x+1] <> 0) and d = 9 and v9x < xf))
+
+         or ((a[v10y][v10x] = 11 and a[v10y][v10x+1] <> 0 and (v10y+1 > yf-f or v10y-1 < f) and d = 13 and v10x < xf))
+
+         or ((a[v10y][v10x] = 11 and a[v10y][v10x+1] <> 0 and (a[v10y+1][v10x+1] <> 0 and a[v10y-1][v10x+1] <> 0) and d = 13 and v10x < xf))
+
+         or ((a[v11y][v11x] = 12 and a[v11y][v11x+1] <> 0 and (v11y+1 > yf-f or v11y-1 < f) and d = 17 and v11x < xf))
+
+         or ((a[v11y][v11x] = 12 and a[v11y][v11x+1] <> 0 and (a[v11y+1][v11x+1] <> 0 and a[v11y-1][v11x+1] <> 0) and d = 17 and v11x < xf))
+
+         or ((a[v12y][v12x] = 13 and a[v12y][v12x+1] <> 0 and (v12y+1 > yf-f or v12y-1 < f) and d = 21 and v12x < xf))
+
+         or ((a[v12y][v12x] = 13 and a[v12y][v12x+1] <> 0 and (a[v12y+1][v12x+1] <> 0 and a[v12y-1][v12x+1] <> 0) and d = 21 and v12x < xf))
+
+         /* D */
+         
+         or ((a[v13y][v13x] = 14 and a[v13y-1][v13x] <> 0 and (v13x+1 > xf-f or v13x-1 < f) and d = 2 and v13y > 0))
+
+         or ((a[v13y][v13x] = 14 and a[v13y-1][v13x] <> 0 and (a[v13y-1][v13x+1] <> 0 and a[v13y-1][v13x-1] <> 0) and d = 2 and v13y > 0))
+         
+         or ((a[v14y][v14x] = 15 and a[v14y-1][v14x] <> 0 and (v14x+1 > xf-f or v14x-1 < f) and d = 6 and v14y > 0))
+
+         or ((a[v14y][v14x] = 15 and a[v14y-1][v14x] <> 0 and (a[v14y-1][v14x+1] <> 0 and a[v14y-1][v14x-1] <> 0) and d = 6 and v14y > 0))
+         
+         or ((a[v15y][v15x] = 16 and a[v15y-1][v15x] <> 0 and (v15x+1 > xf-f or v15x-1 < f) and d = 10 and v15y > 0))
+
+         or ((a[v15y][v15x] = 16 and a[v15y-1][v15x] <> 0 and (a[v15y-1][v15x+1] <> 0 and a[v15y-1][v15x-1] <> 0) and d = 6 and v15y > 0))
+         
+         or ((a[v16y][v16x] = 17 and a[v16y-1][v16x] <> 0 and (v16x+1 > xf-f or v16x-1 < f) and d = 14 and v16y > 0))
+
+         or ((a[v16y][v16x] = 17 and a[v16y-1][v16x] <> 0 and (a[v16y-1][v16x+1] <> 0 and a[v16y-1][v16x-1] <> 0) and d = 14 and v16y > 0))
+         
+         or ((a[v17y][v17x] = 18 and a[v17y-1][v17x] <> 0 and (v17x+1 > xf-f or v17x-1 < f) and d = 18 and v17y > 0))
+
+         or ((a[v17y][v17x] = 18 and a[v17y-1][v17x] <> 0 and (a[v17y-1][v17x+1] <> 0 and a[v17y-1][v17x-1] <> 0) and d = 18 and v17y > 0))
+         
+         or ((a[v18y][v18x] = 19 and a[v18y-1][v18x] <> 0 and (v18x+1 > xf-f or v18x-1 < f) and d = 22 and v18y > 0))
+
+         or ((a[v18y][v18x] = 19 and a[v18y-1][v18x] <> 0 and (a[v18y-1][v18x+1] <> 0 and a[v18y-1][v18x-1] <> 0) and d = 22 and v18y > 0))
+         
+         /* C */
+         
+         or ((a[v19y][v19x] = 20 and a[v19y][v19x-1] <> 0 and (v19y+1 > yf-f or v19y-1 < f) and d = 3 and v19x > 0))
+
+         or ((a[v19y][v19x] = 20 and a[v19y][v19x-1] <> 0 and (a[v7y+1][v7x-1] <> 0 and a[v7y-1][v7x-1] <> 0) and d = 3 and v19x > 0))
+
+         or ((a[v20y][v20x] = 21 and a[v20y][v20x-1] <> 0 and (v20y+1 > yf-f or v20y-1 < f) and d = 7 and v20x > 0))
+
+         or ((a[v20y][v20x] = 21 and a[v20y][v20x-1] <> 0 and (a[v20y+1][v20x-1] <> 0 and a[v20y-1][v20x-1] <> 0) and d = 7 and v19x > 0))
+
+         or ((a[v21y][v21x] = 22 and a[v21y][v21x-1] <> 0 and (v21y+1 > yf-f or v21y-1 < f) and d = 11 and v21x > 0))
+
+         or ((a[v21y][v21x] = 22 and a[v21y][v21x-1] <> 0 and (a[v21y+1][v21x-1] <> 0 and a[v21y-1][v21x-1] <> 0) and d = 11 and v21x > 0))
+
+         or ((a[v22y][v22x] = 23 and a[v22y][v22x-1] <> 0 and (v22y+1 > yf-f or v22y-1 < f) and d = 15 and v22x > 0))
+
+         or ((a[v22y][v22x] = 23 and a[v22y][v22x-1] <> 0 and (a[v22y+1][v22x-1] <> 0 and a[v22y-1][v22x-1] <> 0) and d = 15 and v22x > 0))
+
+         or ((a[v23y][v23x] = 24 and a[v23y][v23x-1] <> 0 and (v23y+1 > yf-f or v23y-1 < f) and d = 19 and v23x > 0))
+
+         or ((a[v23y][v23x] = 24 and a[v23y][v23x-1] <> 0 and (a[v23y+1][v23x-1] <> 0 and a[v23y-1][v23x-1] <> 0) and d = 19 and v23x > 0))
+
+         or ((a[v24y][v24x] = 25 and a[v24y][v24x-1] <> 0 and (v24y+1 > yf-f or v24y-1 < f) and d = 23 and v24x > 0))
+
+         or ((a[v24y][v24x] = 25 and a[v24y][v24x-1] <> 0 and (a[v24y+1][v24x-1] <> 0 and a[v24y-1][v24x-1] <> 0) and d = 23 and v24x > 0))
+
+         ;
+         d:=d+1;
+         to move            
+      
+      /* Destinations where cars on the edge may leave the grid - No road convergence*/
+
+      [] on a[v1y][v1x] = 2 and v1y = yf-1 and (v1x = xf - f - p + 1 or v1x = xf - f - p + 2 or v1x = xf - f - p + 3 or v1x = xf - f - p + 4);
+            a[v1y][v1x] := 0; out1:=1; to move
+      [] on a[v2y][v2x] = 3 and v2y = yf-1 and (v2x = xf - f - p + 1 or v2x = xf - f - p + 2 or v2x = xf - f - p + 3 or v2x = xf - f - p + 4);
+            a[v1y][v1x] := 0; out2:=1; to move
+      [] on a[v3y][v3x] = 4 and v3y = yf-1 and (v3x = xf - f - p + 1 or v3x = xf - f - p + 2 or v3x = xf - f - p + 3 or v3x = xf - f - p + 4);
+            a[v3y][v3x] := 0; out3:=1; to move
+      [] on a[v4y][v4x] = 5 and v4y = yf-1 and (v4x = xf - f - p + 1 or v4x = xf - f - p + 2 or v4x = xf - f - p + 3 or v4x = xf - f - p + 4);
+            a[v4y][v4x] := 0; out4:=1; to move
+      [] on a[v5y][v5x] = 6 and v5y = yf-1 and (v5x = xf - f - p + 1 or v5x = xf - f - p + 2 or v5x = xf - f - p + 3 or v5x = xf - f - p + 4);
+            a[v5y][v5x] := 0; out5:=1; to move
+      [] on a[v6y][v6x] = 7 and v6y = yf-1 and (v6x = xf - f - p + 1 or v6x = xf - f - p + 2 or v6x = xf - f - p + 3 or v6x = xf - f - p + 4);
+            a[v6y][v6x] := 0; out6:=1; to move
+
+
+      [] on a[v7y][v7x] = 8 and v7x = xf-1 and (v7y = yf - f - p + 1 or v7y = yf - f - p + 2 or v7y = yf - f - p + 3 or v7y = yf - f - p + 4);
+            a[v7y][v7x] := 0; out7:=1; to move
+      [] on a[v8y][v8x] = 9 and v8x = xf-1 and (v8y = yf - f - p + 1 or v8y = yf - f - p + 2 or v8y = yf - f - p + 3 or v8y = yf - f - p + 4);
+            a[v8y][v8x] := 0; out8:=1; to move
+      [] on a[v9y][v9x] = 10 and v9x = xf-1 and (v9y = yf - f - p + 1 or v9y = yf - f - p + 2 or v9y = yf - f - p + 3 or v9y = yf - f - p + 4);
+            a[v9y][v9x] := 0; out9:=1; to move
+      [] on a[v10y][v10x] = 11 and v10x = xf-1 and (v10y = yf - f - p + 1 or v10y = yf - f - p + 2 or v10y = yf - f - p + 3 or v10y = yf - f - p + 4);
+            a[v10y][v10x] := 0; out10:=1; to move
+      [] on a[v11y][v11x] = 12 and v11x = xf-1 and (v11y = yf - f - p + 1 or v11y = yf - f - p + 2 or v11y = yf - f - p + 3 or v11y = yf - f - p + 4);
+            a[v11y][v11x] := 0; out11:=1; to move
+      [] on a[v12y][v12x] = 13 and v12x = xf-1 and (v12y = yf - f - p + 1 or v12y = yf - f - p + 2 or v12y = yf - f - p + 3 or v12y = yf - f - p + 4);
+            a[v12y][v12x] := 0; out12:=1; to move
+
+      [] on a[v13y][v13x] = 14 and v13y = 1 and (v13x = xf - f - p + 1 or v13x = xf - f - p + 2 or v13x = xf - f - p + 3 or v13x = xf - f - p + 4);
+            a[v13y][v13x] := 0; out13:=1; to move
+      [] on a[v14y][v14x] = 15 and v14y = 1 and (v14x = xf - f - p + 1 or v14x = xf - f - p + 2 or v14x = xf - f - p + 3 or v14x = xf - f - p + 4);
+            a[v14y][v14x] := 0; out14:=1; to move
+      [] on a[v15y][v15x] = 16 and v15y = 1 and (v15x = xf - f - p + 1 or v15x = xf - f - p + 2 or v15x = xf - f - p + 3 or v15x = xf - f - p + 4);
+            a[v15y][v15x] := 0; out15:=1; to move
+      [] on a[v16y][v16x] = 17 and v16y = 1 and (v16x = xf - f - p + 1 or v16x = xf - f - p + 2 or v16x = xf - f - p + 3 or v16x = xf - f - p + 4);
+            a[v16y][v16x] := 0; out16:=1; to move
+      [] on a[v17y][v17x] = 18 and v17y = 1 and (v17x = xf - f - p + 1 or v17x = xf - f - p + 2 or v17x = xf - f - p + 3 or v17x = xf - f - p + 4);
+            a[v17y][v17x] := 0; out17:=1; to move
+      [] on a[v18y][v18x] = 19 and v18y = 1 and (v18x = xf - f - p + 1 or v18x = xf - f - p + 2 or v18x = xf - f - p + 3 or v18x = xf - f - p + 4);
+            a[v18y][v18x] := 0; out18:=1; to move
+
+      [] on a[v19y][v19x] = 20 and v19x = 1 and (v19y = yf - f - p + 1 or v19y = yf - f - p + 2 or v19y = yf - f - p + 3 or v19y = yf - f - p + 4);
+            a[v19y][v19x] := 0; out19:=1; to move
+      [] on a[v20y][v20x] = 21 and v20x = 1 and (v20y = yf - f - p + 1 or v20y = yf - f - p + 2 or v20y = yf - f - p + 3 or v20y = yf - f - p + 4);
+            a[v20y][v20x] := 0; out20:=1; to move
+      [] on a[v21y][v21x] = 22 and v21x = 1 and (v21y = yf - f - p + 1 or v21y = yf - f - p + 2 or v21y = yf - f - p + 3 or v21y = yf - f - p + 4);
+            a[v21y][v21x] := 0; out21:=1; to move
+      [] on a[v22y][v22x] = 23 and v22x = 1 and (v22y = yf - f - p + 1 or v22y = yf - f - p + 2 or v22y = yf - f - p + 3 or v22y = yf - f - p + 4);
+            a[v22y][v22x] := 0; out22:=1; to move
+      [] on a[v23y][v23x] = 24 and v23x = 1 and (v23y = yf - f - p + 1 or v23y = yf - f - p + 2 or v23y = yf - f - p + 3 or v23y = yf - f - p + 4);
+            a[v23y][v23x] := 0; out23:=1; to move
+      [] on a[v24y][v24x] = 25 and v24x = 1 and (v24y = yf - f - p + 1 or v24y = yf - f - p + 2 or v12y = yf - f - p + 3 or v24y = yf - f - p + 4);
+            a[v24y][v24x] := 0; out24:=1; to move
+
+              
+      /* Movements*/
+      
+      
+     /* ---------------------------------------ROAD A----------------------------------------*/ 
+     /* Cars on road A move south if y + 1 is empty and if they respect starvation-free property*/
+      [] on a[v1y][v1x] = 2 and a[v1y+1][v1x] = 0 and v1y+1 < yf and (d = 0 or d = 24 or out24 = 1);
+            a[v1y+1][v1x]:=2; a[v1y][v1x]:=0; v1y:=v1y+1; d:=1;
+            to move
+     
+      [] on a[v2y][v2x] = 3 and a[v2y+1][v2x] = 0 and v2y+1 < yf and (d = 4 or out4 = 1);
+            a[v2y+1][v2x]:=3; a[v2y][v2x]:=0; v2y:=v2y+1; d:=5;
+            to move 
+
+      [] on a[v3y][v3x] = 4 and a[v3y+1][v3x] = 0 and v3y+1 < yf and (d = 8 or out8 = 1);
+            a[v3y+1][v3x]:=4; a[v3y][v3x]:=0; v3y:=v3y+1; d:=9;
+            to move 
+      
+      [] on a[v4y][v4x] = 4 and a[v4y+1][v4x] = 0 and v4y+1 < yf and (d = 12 or out12 = 1);
+            a[v4y+1][v4x]:=5; a[v4y][v4x]:=0; v4y:=v4y+1; d:=13;
+            to move 
+
+      [] on a[v5y][v5x] = 6 and a[v5y+1][v5x] = 0 and v5y+1 < yf and (d = 16 or out16 = 1);
+            a[v5y+1][v5x]:=6; a[v5y][v5x]:=0; v5y:=v5y+1; d:=17;
+            to move
+     
+      [] on a[v6y][v6x] = 7 and a[v6y+1][v6x] = 0 and v6y+1 < yf and (d = 20 or out20 = 1);
+            a[v6y+1][v6x]:=7; a[v6y][v6x]:=0; v6y:=v6y+1; d:=21;
+            to move 
+          
+     /* Cars on road A move southwest if [y+1][x-1] is empty and if they respect starvation-free property */
+      [] on a[v1y][v1x]=2 and a[v1y+1][v1x-1]=0 and (v1x-1 > f-1 and v1y+1 < yf) and (d = 0 or d = 24 or out24 = 1);
+            a[v1y+1][v1x-1]:=2; a[v1y][v1x]:=0; v1y:=v1y+1; v1x:=v1x-1; d:=1;
+            to move
+      [] on a[v2y][v2x]=3 and a[v2y+1][v2x-1]=0 and (v2x-1 > f-1 and v2y+1 < yf) and (d = 4 or out4 = 1);
+            a[v2y+1][v2x-1]:=3; a[v2y][v2x]:=0; v2y:=v2y+1; v2x:=v2x-1; d:=5;
+            to move
+      [] on a[v3y][v3x]=4 and a[v3y+1][v3x-1]=0 and (v3x-1 > f-1 and v3y+1 < yf) and (d = 8 or out8 = 1);
+            a[v3y+1][v3x-1]:=4; a[v3y][v3x]:=0; v3y:=v3y+1; v3x:=v3x-1; d:=9;
+            to move
+      [] on a[v4y][v4x]=5 and a[v4y+1][v4x-1]=0 and (v4x-1 > f-1 and v4y+1 < yf) and (d = 12 or out12 = 1);
+            a[v4y+1][v4x-1]:=5; a[v4y][v4x]:=0; v4y:=v4y+1; v4x:=v4x-1; d:=13;
+            to move
+      [] on a[v5y][v5x]=6 and a[v5y+1][v5x-1]=0 and (v5x-1 > f-1 and v5y+1 < yf) and (d = 16 or out16 = 1);
+            a[v5y+1][v5x-1]:=6; a[v5y][v5x]:=0; v5y:=v5y+1; v5x:=v5x-1; d:=17;
+            to move
+      [] on a[v6y][v6x]=7 and a[v6y+1][v6x-1]=0 and (v6x-1 > f-1 and v6y+1 < yf) and (d = 20 or out20 = 1);
+            a[v6y+1][v6x-1]:=7; a[v6y][v6x]:=0; v6y:=v6y+1; v6x:=v6x-1; d:=21;
+            to move
+
+     /* Cars on road A move southeast if [y+1][x+1] is empty and if they respect starvation-free property*/
+      [] on a[v1y][v1x]=2 and a[v1y+1][v1x+1]=0 and (v1x+1 < xf-f+1 and v1y+1 < yf) and (d = 0 or d = 24 or out24 =1);
+            a[v1y+1][v1x+1]:=2; a[v1y][v1x]:=0; v1y:=v1y+1; v1x:=v1x+1; d:=1;
+            to move
+      [] on a[v2y][v2x]=3 and a[v2y+1][v2x+1]=0 and (v2x+1 < xf-f+1 and v2y+1 < yf) and (d = 4 or out4 = 1);
+            a[v2y+1][v2x+1]:=3; a[v2y][v2x]:=0; v2y:=v2y+1; v2x:=v2x+1; d:=5;
+            to move
+      [] on a[v3y][v3x]=4 and a[v3y+1][v3x+1]=0 and (v3x+1 < xf-f+1 and v3y+1 < yf) and (d = 8 or out8 = 1);
+            a[v3y+1][v3x+1]:=4; a[v3y][v3x]:=0; v3y:=v3y+1; v3x:=v3x+1; d:=9;
+            to move
+      [] on a[v4y][v4x]=5 and a[v4y+1][v4x+1]=0 and (v4x+1 < xf-f+1 and v4y+1 < yf) and (d = 12 or out12 = 1);
+            a[v4y+1][v4x+1]:=5; a[v4y][v4x]:=0; v4y:=v4y+1; v4x:=v4x+1; d:=13;
+            to move
+      [] on a[v5y][v5x]=6 and a[v5y+1][v5x+1]=0 and (v5x+1 < xf-f+1 and v5y+1 < yf) and (d = 16 or out16 = 1);
+            a[v5y+1][v5x+1]:=6; a[v5y][v5x]:=0; v5y:=v5y+1; v5x:=v5x+1; d:=17;
+            to move
+      [] on a[v6y][v6x]=7 and a[v6y+1][v6x+1]=0 and (v6x+1 < xf-f+1 and v6y+1 < yf) and (d = 20 or out20 = 1);
+            a[v6y+1][v6x+1]:=7; a[v6y][v6x]:=0; v6y:=v6y+1; v6x:=v6x+1; d:=21;
+            to move
+     /* --------------------------------------ROAD B----------------------------------------*/
+     
+         
+     /* Cars on road B move east if [x+1] is empty and if they respect starvation-free property*/
+      [] on a[v7y][v7x]=8 and a[v7y][v7x+1]=0 and v7x+1 < xf and (d = 1 or out1 = 1);
+            a[v7y][v7x+1]:=8; a[v7y][v7x]:=0; v7x:=v7x+1; d:=2;
+            to move
+      
+      [] on a[v8y][v8x]=9 and a[v8y][v8x+1]=0 and v8x+1 < xf and (d = 5 or out5 = 1);
+            a[v8y][v8x+1]:=9; a[v8y][v8x]:=0; v8x:=v8x+1; d:=6;
+            to move
+      [] on a[v9y][v9x]=10 and a[v9y][v9x+1]=0 and v9x+1 < xf and (d = 9 or out9 = 1);
+            a[v9y][v9x+1]:=10; a[v9y][v9x]:=0; v9x:=v9x+1; d:=10;
+            to move
+      [] on a[v10y][v10x]=11 and a[v10y][v10x+1]=0 and v10x+1 < xf and (d = 13 or out13 = 1);
+            a[v10y][v10x+1]:=11; a[v10y][v10x]:=0; v10x:=v10x+1; d:=14;
+            to move 
+      [] on a[v11y][v11x]=12 and a[v11y][v11x+1]=0 and v11x+1 < xf and (d = 17 or out17 = 1);
+            a[v11y][v11x+1]:=12; a[v11y][v11x]:=0; v11x:=v11x+1; d:=18;
+            to move 
+      [] on a[v12y][v12x]=13 and a[v12y][v12x+1]=0 and v12x+1 < xf and (d = 21 or out21 = 1);
+            a[v12y][v12x+1]:=13; a[v12y][v12x]:=0; v12x:=v12x+1; d:=22;
+            to move  
+         
+
+     /* Cars on road B move northeast if [y-1][x+1] is empty and if they respect starvation-free property */
+      [] on a[v7y][v7x]=8  and a[v7y-1][v7x+1]=0 and (v7y-1 > f-1 and v7x+1 < xf) and (d = 1 or out1 = 1);
+            a[v7y-1][v7x+1]:=8; a[v7y][v7x]:=0; v7y:=v7y-1; v7x:=v7x+1; d:=2;
+            to move
+      [] on a[v8y][v8x]=9 and a[v8y-1][v8x+1]=0 and (v8y-1 > f-1 and v8x+1 < xf) and (d = 5 or out5 = 1);
+            a[v8y-1][v8x+1]:=9; a[v8y][v8x]:=0; v8y:=v8y-1; v8x:=v8x+1; d:=6;
+            to move    
+      [] on a[v9y][v9x]=10 and a[v9y-1][v9x+1]=0 and (v9y-1 > f-1 and v9x+1 < xf) and (d = 9 or out9 = 1);
+            a[v9y-1][v9x+1]:=10; a[v9y][v9x]:=0; v9y:=v9y-1; v9x:=v9x+1; d:=10;
+            to move
+      [] on a[v10y][v10x]=11 and a[v10y-1][v10x+1]=0 and (v10y-1 > f-1 and v10x+1 < xf) and (d = 13 or out13 = 1);
+            a[v10y-1][v10x+1]:=11; a[v10y][v10x]:=0; v10y:=v10y-1; v10x:=v10x+1; d:=14;
+            to move 
+      [] on a[v11y][v11x]=12 and a[v11y-1][v11x+1]=0 and (v11y-1 > f-1 and v11x+1 < xf) and (d = 17 or out17 = 1);
+            a[v11y-1][v11x+1]:=12; a[v11y][v11x]:=0; v11y:=v11y-1; v11x:=v11x+1; d:=18;
+            to move 
+      [] on a[v12y][v12x]=13 and a[v12y-1][v12x+1]=0 and (v12y-1 > f-1 and v12x+1 < xf) and (d = 21 or out21 = 1);
+            a[v12y-1][v12x+1]:=13; a[v12y][v12x]:=0; v12y:=v12y-1; v12x:=v12x+1; d:=22;
+            to move 
+     
+     /* Cars on road B move southeast if [y+1][x+1] is empty and if they respect starvation-free property */
+      [] on a[v7y][v7x]=8  and a[v7y+1][v7x+1]=0 and (v7y+1 < yf-f+1 and v7x+1 < xf) and (d = 1 or out1 = 1);
+            a[v7y+1][v7x+1]:=3; a[v7y][v7x]:=0; v7y:=v7y+1; v7x:=v7x+1; d:=2;
+            to move
+      [] on a[v8y][v8x]=9 and a[v8y+1][v8x+1]=0 and (v8y+1 < yf-f+1 and v8x+1 < xf) and (d = 5 or out5 = 1);
+            a[v8y+1][v8x+1]:=9; a[v8y][v8x]:=0; v8y:=v8y+1; v8x:=v8x+1; d:=6;
+            to move
+      [] on a[v9y][v9x]=10 and a[v9y+1][v9x+1]=0 and (v9y+1 < yf-f+1 and v9x+1 < xf) and (d = 9 or out9 = 1);
+            a[v9y+1][v9x+1]:=10; a[v9y][v9x]:=0; v9y:=v9y+1; v9x:=v9x+1; d:=10;
+            to move
+      [] on a[v10y][v10x]=11 and a[v10y+1][v10x+1]=0 and (v10y+1 < yf-f+1 and v10x+1 < xf) and (d = 13 or out13 = 1);
+            a[v10y+1][v10x+1]:=11; a[v10y][v10x]:=0; v10y:=v10y+1; v10x:=v10x+1; d:=14;
+            to move
+      [] on a[v11y][v11x]=12 and a[v11y+1][v11x+1]=0 and (v11y+1 < yf-f+1 and v11x+1 < xf) and (d = 17 or out17 = 1);
+            a[v11y+1][v11x+1]:=12; a[v11y][v11x]:=0; v11y:=v11y+1; v11x:=v11x+1; d:=18;
+            to move
+      [] on a[v12y][v12x]=13 and a[v12y+1][v12x+1]=0 and (v12y+1 < yf-f+1 and v12x+1 < xf) and (d = 21 or out21 = 1);
+            a[v12y+1][v12x+1]:=13; a[v12y][v12x]:=0; v12y:=v12y+1; v12x:=v12x+1; d:=22;
+            to move 
+
+      /* ---------------------------------------ROAD D----------------------------------------*/ 
+     /* Cars on road D move north if y - 1 is empty and if they respect starvation-free property*/
+      [] on a[v13y][v13x] = 14 and a[v13y-1][v13x] = 0 and v13y-1 > 0 and (d = 2 or out2 = 1);
+            a[v13y-1][v13x]:=14; a[v13y][v13x]:=0; v13y:=v13y-1; d:=4;
+            to move
+      [] on a[v14y][v14x] = 15 and a[v14y-1][v14x] = 0 and v14y-1 > 0 and (d = 6 or out6 = 1);
+            a[v14y-1][v14x]:=15; a[v14y][v14x]:=0; v14y:=v14y-1; d:=8;
+            to move
+      [] on a[v15y][v15x] = 16 and a[v15y-1][v15x] = 0 and v15y-1 > 0 and (d = 10 or out10 = 1);
+            a[v15y-1][v15x]:=16; a[v15y][v15x]:=0; v15y:=v15y-1; d:=12;
+            to move
+      [] on a[v16y][v16x] = 17 and a[v16y-1][v16x] = 0 and v16y-1 > 0 and (d = 14 or out14 = 1);
+            a[v16y-1][v16x]:=17; a[v16y][v16x]:=0; v16y:=v16y-1; d:=16;
+            to move
+      [] on a[v17y][v17x] = 18 and a[v17y-1][v17x] = 0 and v17y-1 > 0 and (d = 18 or out18 = 1);
+            a[v17y-1][v17x]:=18; a[v17y][v17x]:=0; v17y:=v17y-1; d:=20;
+            to move
+      [] on a[v18y][v18x] = 19 and a[v18y-1][v18x] = 0 and v18y-1 > 0 and (d = 22 or out22 = 1);
+            a[v18y-1][v18x]:=19; a[v18y][v18x]:=0; v18y:=v18y-1; d:=23;
+            to move
+
+
+     /* Cars on road D move northwest if [y-1][x-1] is empty and if they respect starvation-free property */
+      [] on a[v13y][v13x]=14 and a[v13y-1][v13x-1]=0 and (v13y-1 > f-1 and v13x-1 > 0) and (d = 2 or out2 = 1);
+            a[v13y-1][v13x-1]:=14; a[v13y][v13x]:=0; v13y:=v13y-1; v13x:=v13x-1; d:=3;
+            to move
+      [] on a[v14y][v14x]=15 and a[v14y-1][v14x-1]=0 and (v14y-1 > f-1 and v14x-1 > 0) and (d = 6 or out6 = 1);
+            a[v14y-1][v14x-1]:=15; a[v14y][v14x]:=0; v14y:=v14y-1; v14x:=v14x-1; d:=7;
+            to move
+      [] on a[v15y][v15x]=16 and a[v15y-1][v15x-1]=0 and (v15y-1 > f-1 and v15x-1 > 0) and (d = 12 or out12 = 1);
+            a[v15y-1][v15x-1]:=16; a[v15y][v15x]:=0; v15y:=v15y-1; v15x:=v15x-1; d:=11;
+            to move
+      [] on a[v16y][v16x]=17 and a[v16y-1][v16x-1]=0 and (v16y-1 > f-1 and v16x-1 > 0) and (d = 14 or out14 = 1);
+            a[v16y-1][v16x-1]:=17; a[v16y][v16x]:=0; v16y:=v16y-1; v16x:=v16x-1; d:=15;
+            to move
+      [] on a[v17y][v17x]=18 and a[v17y-1][v17x-1]=0 and (v17y-1 > f-1 and v17x-1 > 0) and (d = 20 or out20 = 1);
+            a[v17y-1][v17x-1]:=18; a[v17y][v17x]:=0; v17y:=v17y-1; v17x:=v17x-1; d:=19;
+            to move
+      [] on a[v18y][v18x]=19 and a[v18y-1][v18x-1]=0 and (v18y-1 > f-1 and v18x-1 > 0) and (d = 22 or out22 = 1);
+            a[v18y-1][v18x-1]:=19; a[v18y][v18x]:=0; v18y:=v18y-1; v18x:=v18x-1; d:=23;
+            to move
+
+
+     /* Cars on road D move northeast if [y-1][x+1] is empty and if they respect starvation-free property*/
+      [] on a[v13y][v13x]=14 and a[v13y-1][v13x+1]=0 and (v13y-1 > f-1 and v13x+1 < xf) and (d = 2 or out2 = 1);
+            a[v13y-1][v13x+1]:=14; a[v13y][v13x]:=0; v13y:=v13y-1; v13x:=v13x+1; d:=3;
+            to move
+      [] on a[v14y][v14x]=15 and a[v14y-1][v14x+1]=0 and (v14y-1 > f-1 and v14x+1 < xf) and (d = 6 or out6 = 1);
+            a[v14y-1][v14x+1]:=15; a[v14y][v14x]:=0; v14y:=v14y-1; v14x:=v14x+1; d:=7;
+            to move
+      [] on a[v15y][v15x]=16 and a[v15y-1][v15x+1]=0 and (v15y-1 > f-1 and v15x+1 < xf) and (d = 10 or out10 = 1);
+            a[v15y-1][v15x+1]:=16; a[v15y][v15x]:=0; v15y:=v15y-1; v15x:=v15x+1; d:=11;
+            to move
+      [] on a[v16y][v16x]=17 and a[v16y-1][v16x+1]=0 and (v16y-1 > f-1 and v16x+1 < xf) and (d = 14 or out14 = 1);
+            a[v16y-1][v16x+1]:=17; a[v16y][v16x]:=0; v16y:=v16y-1; v16x:=v16x+1; d:=15;
+            to move
+      [] on a[v17y][v17x]=18 and a[v17y-1][v17x+1]=0 and (v17y-1 > f-1 and v17x+1 < xf) and (d = 18 or out18 = 1);
+            a[v17y-1][v17x+1]:=18; a[v17y][v17x]:=0; v17y:=v17y-1; v17x:=v17x+1; d:=19;
+            to move
+      [] on a[v18y][v18x]=19 and a[v18y-1][v18x+1]=0 and (v18y-1 > f-1 and v18x+1 < xf) and (d = 22 or out22 = 1);
+            a[v18y-1][v18x+1]:=19; a[v18y][v18x]:=0; v18y:=v18y-1; v18x:=v18x+1; d:=23;
+            to move
+      
+     /* --------------------------------------ROAD C----------------------------------------*/
+     
+         
+     /* Cars on road C move west if [x-1] is empty and if they respect starvation-free property*/
+      [] on a[v19y][v19x]=20 and a[v19y][v19x-1]=0 and v19x-1 > 0 and (d = 3 or out3 = 1);
+            a[v19y][v19x-1]:=20; a[v19y][v19x]:=0; v19x:=v19x-1; d:=4;
+            to move
+      [] on a[v20y][v20x]=21 and a[v20y][v20x-1]=0 and v20x-1 > 0 and (d = 7 or out7 = 1);
+            a[v20y][v20x-1]:=21; a[v20y][v20x]:=0; v20x:=v20x-1; d:=8;
+            to move
+      [] on a[v21y][v21x]=22 and a[v21y][v21x-1]=0 and v21x-1 > 0 and (d = 11 or out11 = 1);
+            a[v21y][v21x-1]:=22; a[v21y][v21x]:=0; v21x:=v21x-1; d:=12;
+            to move
+      [] on a[v22y][v22x]=23 and a[v22y][v22x-1]=0 and v22x-1 > 0 and (d = 15 or out15 = 1);
+            a[v22y][v22x-1]:=23; a[v22y][v22x]:=0; v22x:=v22x-1; d:=16;
+            to move
+      [] on a[v23y][v23x]=24 and a[v23y][v23x-1]=0 and v23x-1 > 0 and (d = 19 or out19 = 1);
+            a[v23y][v23x-1]:=24; a[v23y][v23x]:=0; v23x:=v23x-1; d:=20;
+            to move
+      [] on a[v24y][v24x]=25 and a[v24y][v24x-1]=0 and v24x-1 > 0 and (d = 23 or out23 = 1);
+            a[v24y][v24x-1]:=25; a[v24y][v24x]:=0; v24x:=v24x-1; d:=24;
+            to move
+
+      
+     /* Cars on road C move northwest if [y-1][x-1] is empty and if they respect starvation-free property */
+      [] on a[v19y][v19x]=20 and a[v19y-1][v19x-1]=0 and (v19y-1 > f-1 and v19x-1 > 0) and (d = 3 or out3 = 1);
+            a[v19y-1][v19x-1]:=20; a[v19y][v19x]:=0; v19y:=v19y-1; v19x:=v19x-1; d:=4;
+            to move
+      [] on a[v20y][v20x]=21 and a[v20y-1][v20x-1]=0 and (v20y-1 > f-1 and v20x-1 > 0) and (d = 7 or out7 = 1);
+            a[v20y-1][v20x-1]:=21; a[v20y][v20x]:=0; v20y:=v20y-1; v20x:=v20x-1; d:=8;
+            to move
+      [] on a[v21y][v21x]=22 and a[v21y-1][v21x-1]=0 and (v21y-1 > f-1 and v21x-1 > 0) and (d = 11 or out11 = 1);
+            a[v21y-1][v21x-1]:=22; a[v21y][v21x]:=0; v21y:=v21y-1; v21x:=v21x-1; d:=12;
+            to move
+      [] on a[v22y][v22x]=23 and a[v22y-1][v22x-1]=0 and (v22y-1 > f-1 and v22x-1 > 0) and (d = 15 or out15 = 1);
+            a[v22y-1][v22x-1]:=23; a[v22y][v22x]:=0; v22y:=v22y-1; v22x:=v22x-1; d:=16;
+            to move
+      [] on a[v23y][v23x]=24 and a[v23y-1][v23x-1]=0 and (v23y-1 > f-1 and v23x-1 > 0) and (d = 19 or out19 = 1);
+            a[v23y-1][v23x-1]:=24; a[v23y][v23x]:=0; v23y:=v23y-1; v23x:=v23x-1; d:=20;
+            to move
+      [] on a[v24y][v24x]=25 and a[v24y-1][v24x-1]=0 and (v24y-1 > f-1 and v24x-1 > 0) and (d = 23 or out23 = 1);
+            a[v24y-1][v24x-1]:=25; a[v24y][v24x]:=0; v24y:=v24y-1; v24x:=v24x-1; d:=24;
+            to move
+
+     /* Cars on road C move southwest if [y+1][x-1] is empty and if they respect starvation-free property */
+      [] on a[v19y][v19x]=20 and a[v19y+1][v19x-1]=0 and (v19y+1 < yf-f+1 and v19x+1 > 0) and (d = 3 or out3 = 1);
+            a[v19y+1][v19x-1]:=20; a[v19y][v19x]:=0; v19y:=v19y+1; v19x:=v19x-1; d:=4;
+            to move 
+      [] on a[v20y][v20x]=21 and a[v20y+1][v20x-1]=0 and (v20y+1 < yf-f+1 and v20x+1 > 0) and (d = 7 or out7 = 1);
+            a[v20y+1][v20x-1]:=21; a[v20y][v20x]:=0; v20y:=v20y+1; v20x:=v20x-1; d:=8;
+            to move
+      [] on a[v21y][v21x]=22 and a[v21y+1][v21x-1]=0 and (v21y+1 < yf-f+1 and v21x+1 > 0) and (d = 11 or out11 = 1);
+            a[v21y+1][v21x-1]:=22; a[v21y][v21x]:=0; v21y:=v21y+1; v21x:=v21x-1; d:=12;
+            to move
+      [] on a[v22y][v22x]=23 and a[v22y+1][v22x-1]=0 and (v22y+1 < yf-f+1 and v22x+1 > 0) and (d = 15 or out15 = 1);
+            a[v22y+1][v22x-1]:=23; a[v22y][v22x]:=0; v22y:=v22y+1; v22x:=v22x-1; d:=16;
+            to move
+      [] on a[v23y][v23x]=24 and a[v23y+1][v23x-1]=0 and (v23y+1 < yf-f+1 and v23x+1 > 0) and (d = 19 or out19 = 1);
+            a[v23y+1][v23x-1]:=24; a[v23y][v23x]:=0; v23y:=v23y+1; v23x:=v23x-1; d:=20;
+            to move
+      [] on a[v24y][v24x]=25 and a[v24y+1][v24x-1]=0 and (v24y+1 < yf-f+1 and v24x+1 > 0) and (d = 23 or out23 = 1);
+            a[v24y+1][v24x-1]:=25; a[v24y][v24x]:=0; v24y:=v24y+1; v24x:=v24x-1; d:=24;
+            to move
+
+      end
+  
+
+
+/* Entry point*/
+
+play
+
+
+/* Properties */
+
+
+/* The model does not reach state "done"*/
+property not_target is ltl ([] not (play/state done)) 
+assert not_target
