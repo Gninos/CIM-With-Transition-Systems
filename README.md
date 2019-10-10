@@ -26,9 +26,9 @@ The transitions will follow some constraints to play realistic movements. For in
 
 ![mov1](https://user-images.githubusercontent.com/50747436/66520083-e220d880-eabe-11e9-957f-1353b0c2255a.png)
 
-On the other hand, if the yellow CAV is making a diagonal movement, it has more options to choose from, as can be seen below.
+In the same way, if the yellow CAV is making a diagonal movement, it has the following options to choose from.
 
-![mov2](https://user-images.githubusercontent.com/50747436/66520087-e64cf600-eabe-11e9-9285-ce81f210b0aa.png)
+![mov2](https://user-images.githubusercontent.com/50747436/66580991-b0a71c00-eb55-11e9-971d-d9db89fa0492.png)
 
 These constraints ensure that there will be no abrupt movements.
 
@@ -40,5 +40,11 @@ The main goal is to accomplish a final state where the grid doesn't have any car
 
 We can call each combination of all the variables d,  out, position x, position y, and the array a, as a marking (state) of the system. For instance, the following states are, respectively, the initial and the final state for a model with four CAVs.
 
+![s0](https://user-images.githubusercontent.com/50747436/66580992-b0a71c00-eb55-11e9-8eb7-9314e6b50063.png)
+
+![statef](https://user-images.githubusercontent.com/50747436/66580990-b00e8580-eb55-11e9-9bf2-c4788d61c7f8.JPG)
 
 Even with the constraints, there are many possible combinations. The shortest_path function from NetworkX library filters the shortest sequence of transitions between the initial state and the desired final state.
+
+
+
