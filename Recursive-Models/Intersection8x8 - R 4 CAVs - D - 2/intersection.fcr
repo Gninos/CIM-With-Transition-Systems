@@ -1,0 +1,375 @@
+/* Intersection with 04 CAVs
+ 0 = street cells, 1 = sidewalk cells, 2..n = cavs cells
+*/
+
+/* --------------------CONSTANTS-------------------- */
+const yxf : nat is 7 /* Last index of the matrix "a" */
+const s   : nat is 2 /* Sidewalk size*/
+const l   : nat is 4 /* Number of lanes on each road */
+const n   : nat is 4 /* Number of cars in intersection control area */
+
+/* -----------------VARIABLES TYPES----------------- */
+/* This one sets a type of variable that comprises the range of x and y positions */
+type RangeYX is 0..yxf
+
+/* This one sets a type of variable that comprises the range of CAVs, starting at 0*/
+type RangeN is 0..n-1
+
+/* This one sets a type of variable that stores the information about the position index */
+type ArrayN is array n of RangeYX
+
+/* This one sets a type of variable to store information about the CAVs */ 
+type Cars is array n of nat
+
+/* v is a constant array that sets a number for each car */
+const v : Cars is [2,3,2,3]
+
+/* --------------------FUNCTIONS-------------------- */
+/*  This function returns the coordinate of each car */
+
+function coordinate (ti : RangeN, pxi : ArrayN, pyi : ArrayN) : array 2 of RangeYX is
+  var xi: RangeYX := 0, yi: RangeYX := 0
+  begin
+      if ti < n then /* Note: Fiacre arrays (pxi, pyi) indices start at 0 */
+        xi := pxi[ti]; yi := pyi[ti];
+        return [xi, yi]
+      else
+        return [xi, yi]
+      end
+  end
+
+/*  This function returns the number that identify each car */
+
+function cav (ti : RangeN) : nat is
+  var vi: nat := 0
+  begin
+      if ti < n then /* Note: Fiacre arrays (pxi, pyi) indices start at 0 */
+        vi := v[ti];
+        return vi
+      else
+        return vi
+      end
+  end
+
+/*  This function returns the number that identify each car */
+
+function road (vi : nat) : nat is
+  var ri: nat := 0
+  begin
+      if vi = 2 then 
+        ri := 1;
+        return ri
+      elsif vi = 3 then 
+        ri := 2;
+        return ri
+      elsif vi = 4 then 
+        ri := 3;
+        return ri
+      elsif vi = 5 then 
+        ri := 4;
+        return ri
+      else
+        return ri
+      end
+  end
+
+function oo () : ArrayN is
+  var oi: ArrayN, i: RangeN:=0
+  begin
+     foreach i do oi[i] := 0 end;
+     return oi
+  end
+
+/* ---------------------PROCESS--------------------- */
+/* Intersection Process: CAVs can go forward and diagonally */
+
+process intersection is
+   states move, done                         
+   var  
+       px  : ArrayN  := [2,1,3,1],             /*  x positions indices  */
+       py  : ArrayN  := [1,2,1,3],             /*  y positions indices  */
+       x   : RangeYX,                          /*      x coordinate     */  
+       y   : RangeYX,                          /*      y coordinate     */
+       t   : RangeN  := 0,                     /*       cavs turns      */
+       pos : array 2 of RangeYX,               /*    coordinate pairs   */
+       va  : nat,                              /*     cavs id number    */
+       r   : nat,                              /*       road number     */
+             
+/*  The variable "o" set the desirable final state, when all px[n] and py[n] are equal to 0, which means that all cars left the grid*/
+       
+       o   : ArrayN, /* o = [0, 0,...,0,...,0] */
+       
+                                                 /* A */     
+       a   : array 8 of array 8 of nat :=  [[1,1,0,0,0,0,1,1], 
+                                            [1,1,2,2,0,0,1,1],
+                                            [0,3,0,0,0,0,0,0], 
+                                    /* B */ [0,3,0,0,0,0,0,0], /* D */
+                                            [0,0,0,0,0,0,0,0],
+                                            [0,0,0,0,0,0,0,0],
+                                            [1,1,0,0,0,0,1,1],
+                                            [1,1,0,0,0,0,1,1]]
+                                                 /* C */
+   
+   from move
+      o   := oo();
+      va  := cav(t);
+      pos := coordinate(t,px,py);
+      x   := pos[0];
+      y   := pos[1];
+      r   := road(va);
+
+      select
+         on px = o and py = o; t:=0; to done /*  all cars off the grid= 0, ox = [0, 0,...,0,...,0]  */
+           
+      /* Destinations where cars on the edge may leave the grid - No road convergence */
+
+      [] on (t < n-1) and a[y][x] = 2 and y = yxf-1 and (x = yxf - s - l + 1 or x = yxf - s - l + 2 or x = yxf - s - l + 3 or x = yxf - s - l + 4);
+         a[y][x] := 0; py[t]:=0; px[t]:=0; t := t+1; to move
+
+      [] on (t = n-1) and a[y][x] = 2 and y = yxf-1 and (x = yxf - s - l + 1 or x = yxf - s - l + 2 or x = yxf - s - l + 3 or x = yxf - s - l + 4);
+         a[y][x] := 0; py[t]:=0; px[t]:=0; t := 0; to move
+      
+      [] on (t < n-1) and a[y][x] = 3 and x = yxf-1 and (y = yxf - s - l + 1 or y = yxf - s - l + 2 or y = yxf - s - l + 3 or y = yxf - s - l + 4);
+         a[y][x] := 0; py[t]:=0; px[t]:=0; t := t+1; to move
+
+      [] on (t = n-1) and a[y][x] = 3 and x = yxf-1 and (y = yxf - s - l + 1 or y = yxf - s - l + 2 or y = yxf - s - l + 3 or y = yxf - s - l + 4);
+         a[y][x] := 0; py[t]:=0; px[t]:=0; t := 0; to move
+
+      [] on (t < n-1) and a[y][x] = 4 and y = 1 and (x = yxf - s - l + 1 or x = yxf - s - l + 2 or x = yxf - s - l + 3 or x = yxf - s - l + 4);
+         a[y][x] := 0; py[t]:=0; px[t]:=0; t := t+1; to move
+
+      [] on (t = n-1) and a[y][x] = 4 and y = 1 and (x = yxf - s - l + 1 or x = yxf - s - l + 2 or x = yxf - s - l + 3 or x = yxf - s - l + 4);
+         a[y][x] := 0; py[t]:=0; px[t]:=0; t := 0; to move
+
+      [] on (t < n-1) and a[y][x] = 5 and x = 1 and (y = yxf - s - l + 1 or y = yxf - s - l + 2 or y = yxf - s - l + 3 or y = yxf - s - l + 4);
+         a[y][x] := 0; py[t]:=0; px[t]:=0; t := t+1; to move
+
+      [] on (t = n-1) and a[y][x] = 5 and x = 1 and (y = yxf - s - l + 1 or y = yxf - s - l + 2 or y = yxf - s - l + 3 or y = yxf - s - l + 4);
+         a[y][x] := 0; py[t]:=0; px[t]:=0; t := 0; to move
+
+      
+      /* This transition is triggered when a car has already left the grid. It allows the next car in priority order to ride */
+      [] on (t < n-1) and px[t] = 0 and py[t] = 0 and px <> o and py <> o; t:= t+1;
+            to move
+      [] on (t = n-1) and px[t] = 0 and py[t] = 0 and px <> o and py <> o; t:= 0;
+            to move
+          
+      /* A -> C*/
+      /* Car movements */
+      /* Forward */
+      [] on t < n-1 and y < yxf-1 and a[y][x] = va and a[y+1][x] = 0 and r =1;
+            a[y+1][x]:=va; a[y][x]:=0; py[t]:=y+1; t:= t+1; 
+            to move
+      
+      [] on t < n-1 and y < yxf-s and a[y][x] = va and a[y+1][x] = 0 and a[y+2][x] = 0  and r =1;
+            a[y+2][x]:=va; a[y][x]:=0; py[t]:=y+2; t:= t+1; 
+            to move
+
+      [] on t = n-1 and y < yxf-1 and a[y][x] = va and a[y+1][x] = 0 and r =1;
+            a[y+1][x]:=va; a[y][x]:=0; py[t]:=y+1; t:= 0; 
+            to move
+
+      [] on t = n-1 and y < yxf-s and a[y][x] = va and a[y+1][x] = 0 and a[y+2][x] = 0  and r =1;
+            a[y+2][x]:=va; a[y][x]:=0; py[t]:=y+2; t:= 0; 
+            to move
+                  
+      /* Diagonal - southwest*/
+      [] on t < n-1 and y < yxf-1 and x > s and a[y][x] = va and a[y+1][x-1] = 0 and r =1;
+            a[y+1][x-1]:=va; a[y][x]:=0; py[t]:=y+1; px[t]:=x-1; t:= t+1; 
+            to move
+      [] on t = n-1 and y < yxf-1 and x > s and a[y][x] = va and a[y+1][x-1] = 0 and r =1;
+            a[y+1][x-1]:=va; a[y][x]:=0; py[t]:=y+1; px[t]:=x-1; t:= 0; 
+            to move
+
+      /* Diagonal - southeast*/
+      [] on t < n-1 and y < yxf-1 and x < yxf - s and a[y][x] = va and a[y+1][x+1] = 0 and r =1;
+            a[y+1][x+1]:=va; a[y][x]:=0; py[t]:=y+1; px[t]:=x+1; t:= t+1; 
+            to move 
+      [] on t = n-1 and y < yxf-1 and x < yxf - s and a[y][x] = va and a[y+1][x+1] = 0 and r =1;
+            a[y+1][x+1]:=va; a[y][x]:=0; py[t]:=y+1; px[t]:=x+1; t:= 0; 
+            to move       
+
+
+      /* If all movements of the car are blocked, it stops and passes its turn to the next */
+      [] on t < n-1 and a[y][x] = va and a[y+1][x] <> 0 and (a[y+1][x-1] <> 0 and a[y+1][x+1] <> 0) and r =1;
+            t:= t+1;
+            to move
+      [] on t < n-1 and a[y][x] = va and ((x = s and a[y+1][x] <> 0 and a[y+1][x+1] <> 0) or (x = yxf - s and a[y+1][x] <> 0 and a[y+1][x-1] <> 0)) and r =1;
+            t:= t+1;
+            to move 
+
+      [] on t = n-1 and a[y][x] = va and a[y+1][x] <> 0 and (a[y+1][x-1] <> 0 and a[y+1][x+1] <> 0) and r =1;
+            t:= 0;
+            to move
+      [] on t = n-1 and a[y][x] = va and ((x = s and a[y+1][x] <> 0 and a[y+1][x+1] <> 0) or (x = yxf - s and a[y+1][x] <> 0 and a[y+1][x-1] <> 0)) and r =1;
+            t:= 0;
+            to move 
+      
+           
+      /* B -> D*/
+      /* Car movements */
+      [] on t < n-1 and x < yxf-1 and a[y][x] = va and a[y][x+1] = 0 and r =2;
+            a[y][x+1]:=va; a[y][x]:=0; px[t]:=x+1; t:= t+1; 
+            to move
+      
+      [] on t < n-1 and x < yxf-s and a[y][x] = va and a[y][x+1] = 0 and a[y][x+2] = 0 and r =2;
+            a[y][x+2]:=va; a[y][x]:=0; px[t]:=x+2; t:= t+1; 
+            to move
+
+      [] on t = n-1 and x < yxf-1 and a[y][x] = va and a[y][x+1] = 0 and r =2;
+            a[y][x+1]:=va; a[y][x]:=0; px[t]:=x+1; t:= 0; 
+            to move
+
+      [] on t = n-1 and x < yxf-s and a[y][x] = va and a[y][x+1] = 0 and a[y][x+2] = 0 and r =2;
+            a[y][x+2]:=va; a[y][x]:=0; px[t]:=x+2; t:= 0; 
+            to move
+  
+      /* Diagonal - northeast*/
+      [] on t < n-1 and x < yxf-1 and y > s and a[y][x] = va and a[y-1][x+1] = 0 and r =2;
+            a[y-1][x+1]:=va; a[y][x]:=0; py[t]:=y-1; px[t]:=x+1; t:= t+1; 
+            to move
+      [] on t = n-1 and x < yxf-1 and y > s and a[y][x] = va and a[y-1][x+1] = 0 and r =2;
+            a[y-1][x+1]:=va; a[y][x]:=0; py[t]:=y-1; px[t]:=x+1; t:= 0; 
+            to move
+  
+      /* Diagonal - southeast*/
+      [] on t < n-1 and x < yxf - 1 and y < yxf-s and  a[y][x] = va and a[y+1][x+1] = 0 and r =2;
+            a[y+1][x+1]:=va; a[y][x]:=0; py[t]:=y+1; px[t]:=x+1; t:= t+1; 
+            to move
+      [] on t = n-1 and x < yxf - 1 and y < yxf-s and  a[y][x] = va and a[y+1][x+1] = 0 and r =2;
+            a[y+1][x+1]:=va; a[y][x]:=0; py[t]:=y+1; px[t]:=x+1; t:= 0; 
+            to move
+  
+      /* If all movements of the car are blocked, it stops and passes its turn to the next */
+      
+      [] on t < n-1 and a[y][x] = va and a[y][x+1] <> 0 and (a[y+1][x+1] <> 0 and a[y-1][x+1] <> 0) and r =2;
+            t:= t+1;
+            to move 
+
+      [] on t < n-1 and a[y][x] = va and ((y = s and a[y][x+1] <> 0 and a[y+1][x+1] <> 0) or (y = yxf - s and a[y][x+1] <> 0 and a[y-1][x+1] <> 0)) and r =2;
+            t:= t+1;
+            to move
+       
+      [] on t = n-1 and a[y][x] = va and a[y][x+1] <> 0 and (a[y+1][x+1] <> 0 and a[y-1][x+1] <> 0) and r =2;
+            t:= 0;
+            to move
+      [] on t = n-1 and a[y][x] = va and ((y = s and a[y][x+1] <> 0 and a[y+1][x+1] <> 0) or (y = yxf - s and a[y][x+1] <> 0 and a[y-1][x+1] <> 0)) and r =2;
+            t:= 0;
+            to move 
+
+      /* C -> A*/
+      /* Car movements */
+      /* Backward */
+      [] on t < n-1 and y > 1 and a[y][x] = va and a[y-1][x] = 0 and r =3;
+            a[y-1][x]:=va; a[y][x]:=0; py[t]:=y-1; t:= t+1; 
+            to move
+  
+      [] on t < n-1 and y > s and a[y][x] = va and a[y-1][x] = 0 and a[y-2][x] = 0  and r =3;
+            a[y-2][x]:=va; a[y][x]:=0; py[t]:=y-2; t:= t+1; 
+            to move
+
+      [] on t = n-1 and y > 1 and a[y][x] = va and a[y-1][x] = 0 and r =3;
+            a[y-1][x]:=va; a[y][x]:=0; py[t]:=y-1; t:= 0; 
+            to move
+
+      [] on t = n-1 and y > s and a[y][x] = va and a[y-1][x] = 0 and a[y-2][x] = 0  and r =3;
+            a[y-2][x]:=va; a[y][x]:=0; py[t]:=y-2; t:= 0; 
+            to move
+
+      /* Diagonal - northwest*/
+      [] on t < n-1 and y > 1 and x > s and a[y][x] = va and a[y-1][x-1] = 0 and r =3;
+            a[y-1][x-1]:=va; a[y][x]:=0; py[t]:=y-1; px[t]:=x-1; t:= t+1; 
+            to move
+      [] on t = n-1 and y > 1 and x > s and a[y][x] = va and a[y-1][x-1] = 0 and r =3;
+            a[y-1][x-1]:=va; a[y][x]:=0; py[t]:=y-1; px[t]:=x-1; t:= 0; 
+            to move
+
+      /* Diagonal - northeast*/
+      [] on t < n-1 and y > 1 and x < yxf - s and a[y][x] = va and a[y-1][x+1] = 0 and r =3;
+            a[y-1][x+1]:=va; a[y][x]:=0; py[t]:=y-1; px[t]:=x+1; t:= t+1; 
+            to move
+      [] on t = n-1 and y > 1 and x < yxf - s and a[y][x] = va and a[y-1][x+1] = 0 and r =3;
+            a[y-1][x+1]:=va; a[y][x]:=0; py[t]:=y-1; px[t]:=x+1; t:= 0; 
+            to move      
+
+
+      /* If all movements of the car are blocked, it stops and passes its turn to the next */
+      [] on t < n-1 and a[y][x] = va and a[y-1][x] <> 0 and (a[y-1][x-1] <> 0 and a[y-1][x+1] <> 0) and r =3;
+            t:= t+1;
+            to move
+      [] on t < n-1 and a[y][x] = va and ((x = s and a[y-1][x] <> 0 and a[y-1][x+1] <> 0) or (x = yxf - s and a[y-1][x] <> 0 and a[y-1][x-1] <> 0)) and r =3;
+            t:= t+1;
+            to move 
+
+      [] on t = n-1 and a[y][x] = va and a[y-1][x] <> 0 and (a[y-1][x-1] <> 0 and a[y-1][x+1] <> 0) and r =3;
+            t:= 0;
+            to move
+      [] on t = n-1 and a[y][x] = va and ((x = s and a[y-1][x] <> 0 and a[y-1][x+1] <> 0) or (x = yxf - s and a[y-1][x] <> 0 and a[y-1][x-1] <> 0)) and r =3;
+            t:= 0;
+            to move 
+       
+
+      /* D -> B*/
+      /* Car movements */
+      [] on t < n-1 and x > 1 and a[y][x] = va and a[y][x-1] = 0 and r = 4;
+            a[y][x-1]:=va; a[y][x]:=0; px[t]:=x-1; t:= t+1; 
+            to move
+      
+      [] on t < n-1 and x > s and a[y][x] = va and a[y][x-1] = 0 and a[y][x-2] = 0 and r = 4;
+            a[y][x-2]:=va; a[y][x]:=0; px[t]:=x-2; t:= t+1; 
+            to move
+
+      [] on t = n-1 and x > 1 and a[y][x] = va and a[y][x-1] = 0 and r = 4;
+            a[y][x-1]:=va; a[y][x]:=0; px[t]:=x-1; t:= 0; 
+            to move
+
+      [] on t = n-1 and x > s and a[y][x] = va and a[y][x-1] = 0 and a[y][x-2] = 0 and r = 4;
+            a[y][x-2]:=va; a[y][x]:=0; px[t]:=x-2; t:= 0; 
+            to move
+  
+      /* Diagonal - northwest*/
+      [] on t < n-1 and x > 1 and y > s and a[y][x] = va and a[y-1][x-1] = 0 and r = 4;
+            a[y-1][x-1]:=va; a[y][x]:=0; py[t]:=y-1; px[t]:=x-1; t:= t+1; 
+            to move
+      [] on t = n-1 and x > 1 and y > s and a[y][x] = va and a[y-1][x-1] = 0 and r = 4;
+            a[y-1][x-1]:=va; a[y][x]:=0; py[t]:=y-1; px[t]:=x-1; t:= 0; 
+            to move
+
+      /* Diagonal - southwest*/
+      [] on t < n-1 and x > 1  and y < yxf-s and a[y][x] = va and a[y+1][x-1] = 0 and r = 4;
+            a[y+1][x-1]:=va; a[y][x]:=0; py[t]:=y+1; px[t]:=x-1; t:= t+1; 
+            to move
+      [] on t = n-1 and x > 1  and y < yxf-s and a[y][x] = va and a[y+1][x-1] = 0 and r = 4;
+            a[y+1][x-1]:=va; a[y][x]:=0; py[t]:=y+1; px[t]:=x-1; t:= 0; 
+            to move
+
+      /* If all movements of the car are blocked, it stops and passes its turn to the next*/
+      
+      [] on t < n-1 and a[y][x] = va and a[y][x-1] <> 0 and (a[y+1][x-1] <> 0 and a[y-1][x-1] <> 0) and r =4;
+            t:= t+1;
+            to move 
+
+      [] on t < n-1 and a[y][x] = va and ((y = s and a[y][x-1] <> 0 and a[y+1][x-1] <> 0) or (y = yxf - s and a[y][x-1] <> 0 and a[y-1][x-1] <> 0)) and r =4;
+            t:= t+1;
+            to move
+       
+      [] on t = n-1 and a[y][x] = va and a[y][x-1] <> 0 and (a[y+1][x-1] <> 0 and a[y-1][x-1] <> 0) and r =4;
+            t:= 0;
+            to move
+      [] on t = n-1 and a[y][x] = va and ((y = s and a[y][x-1] <> 0 and a[y+1][x-1] <> 0) or (y = yxf - s and a[y][x-1] <> 0 and a[y-1][x-1] <> 0)) and r =4;
+            t:= 0;
+            to move 
+
+
+      end
+
+
+/* Entry point */
+intersection
+
+
+/* Properties */
+
+property target is ltl ([] not (intersection/state done))
+assert target
+

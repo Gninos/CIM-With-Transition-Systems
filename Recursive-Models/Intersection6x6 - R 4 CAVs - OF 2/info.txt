@@ -1,0 +1,782 @@
+Tina version 3.4.4 -- 01/05/16 -- LAAS/CNRS
+
+mode -R
+
+INPUT NET ------------------------------------------------------- 
+
+parsed net process_intersection_1
+
+2 places, 14 transitions
+
+net process_intersection_1
+tr intersection_1_t0 intersection_1_smove -> intersection_1_sdone 
+tr intersection_1_t1 intersection_1_smove -> intersection_1_smove 
+tr intersection_1_t10 intersection_1_smove -> intersection_1_smove 
+tr intersection_1_t11 intersection_1_smove -> intersection_1_smove 
+tr intersection_1_t12 intersection_1_smove -> intersection_1_smove 
+tr intersection_1_t13 intersection_1_smove -> intersection_1_smove 
+tr intersection_1_t2 intersection_1_smove -> intersection_1_smove 
+tr intersection_1_t3 intersection_1_smove -> intersection_1_smove 
+tr intersection_1_t4 intersection_1_smove -> intersection_1_smove 
+tr intersection_1_t5 intersection_1_smove -> intersection_1_smove 
+tr intersection_1_t6 intersection_1_smove -> intersection_1_smove 
+tr intersection_1_t7 intersection_1_smove -> intersection_1_smove 
+tr intersection_1_t8 intersection_1_smove -> intersection_1_smove 
+tr intersection_1_t9 intersection_1_smove -> intersection_1_smove 
+pl intersection_1_smove (1)
+
+initial data
+    {{intersection_1_vpx=[2,1,3,0],intersection_1_vpy=[1,3,0,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,2,1,1],[1,1,2,0,1,1],[3,0,0,0,0,0],[0,3,0,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}}
+initial state properties
+    {intersection_1_vpx.at[0]}(2) {intersection_1_vpx.at[1]}(1) {intersection_1_vpx.at[2]}(3) {intersection_1_vpx.at[3]}(0) {intersection_1_vpy.at[0]}(1) {intersection_1_vpy.at[1]}(3) {intersection_1_vpy.at[2]}(0) {intersection_1_vpy.at[3]}(2) {intersection_1_vo.at[0]}(1) {intersection_1_vo.at[1]}(1) {intersection_1_vo.at[2]}(1) {intersection_1_vo.at[3]}(1) intersection_1_vt(0) {intersection_1_va.at[0].at[0]}(1) {intersection_1_va.at[0].at[1]}(1) {intersection_1_va.at[0].at[2]}(0) {intersection_1_va.at[0].at[3]}(2) {intersection_1_va.at[0].at[4]}(1) {intersection_1_va.at[0].at[5]}(1) {intersection_1_va.at[1].at[0]}(1) {intersection_1_va.at[1].at[1]}(1) {intersection_1_va.at[1].at[2]}(2) {intersection_1_va.at[1].at[3]}(0) {intersection_1_va.at[1].at[4]}(1) {intersection_1_va.at[1].at[5]}(1) {intersection_1_va.at[2].at[0]}(3) {intersection_1_va.at[2].at[1]}(0) {intersection_1_va.at[2].at[2]}(0) {intersection_1_va.at[2].at[3]}(0) {intersection_1_va.at[2].at[4]}(0) {intersection_1_va.at[2].at[5]}(0) {intersection_1_va.at[3].at[0]}(0) {intersection_1_va.at[3].at[1]}(3) {intersection_1_va.at[3].at[2]}(0) {intersection_1_va.at[3].at[3]}(0) {intersection_1_va.at[3].at[4]}(0) {intersection_1_va.at[3].at[5]}(0) {intersection_1_va.at[4].at[0]}(1) {intersection_1_va.at[4].at[1]}(1) {intersection_1_va.at[4].at[2]}(0) {intersection_1_va.at[4].at[3]}(0) {intersection_1_va.at[4].at[4]}(1) {intersection_1_va.at[4].at[5]}(1) {intersection_1_va.at[5].at[0]}(1) {intersection_1_va.at[5].at[1]}(1) {intersection_1_va.at[5].at[2]}(0) {intersection_1_va.at[5].at[3]}(0) {intersection_1_va.at[5].at[4]}(1) {intersection_1_va.at[5].at[5]}(1) 
+
+0.000s
+
+REACHABILITY ANALYSIS ------------------------------------------- 
+
+bounded
+
+178 marking(s), 207 transition(s)
+
+MARKINGS:
+
+0 : intersection_1_smove {intersection_1_vpx=[2,1,3,0],intersection_1_vpy=[1,3,0,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,2,1,1],[1,1,2,0,1,1],[3,0,0,0,0,0],[0,3,0,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+1 : intersection_1_smove {intersection_1_vpx=[2,1,3,0],intersection_1_vpy=[2,3,0,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,2,1,1],[1,1,0,0,1,1],[3,0,2,0,0,0],[0,3,0,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+2 : intersection_1_smove {intersection_1_vpx=[2,1,3,0],intersection_1_vpy=[3,3,0,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,2,1,1],[1,1,0,0,1,1],[3,0,0,0,0,0],[0,3,2,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+3 : intersection_1_smove {intersection_1_vpx=[2,3,3,0],intersection_1_vpy=[2,3,0,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,2,1,1],[1,1,0,0,1,1],[3,0,2,0,0,0],[0,0,0,3,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+4 : intersection_1_smove {intersection_1_vpx=[2,2,3,0],intersection_1_vpy=[2,3,0,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,2,1,1],[1,1,0,0,1,1],[3,0,2,0,0,0],[0,0,3,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+5 : intersection_1_smove {intersection_1_vpx=[2,1,3,0],intersection_1_vpy=[3,3,0,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,2,1,1],[1,1,0,0,1,1],[3,0,0,0,0,0],[0,3,2,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+6 : intersection_1_smove {intersection_1_vpx=[2,3,3,0],intersection_1_vpy=[2,3,1,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,2,1,1],[3,0,2,0,0,0],[0,0,0,3,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+7 : intersection_1_smove {intersection_1_vpx=[2,3,3,0],intersection_1_vpy=[2,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[3,0,2,2,0,0],[0,0,0,3,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+8 : intersection_1_smove {intersection_1_vpx=[2,2,3,0],intersection_1_vpy=[2,3,1,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,2,1,1],[3,0,2,0,0,0],[0,0,3,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+9 : intersection_1_smove {intersection_1_vpx=[2,2,3,0],intersection_1_vpy=[2,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[3,0,2,2,0,0],[0,0,3,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+10 : intersection_1_smove {intersection_1_vpx=[2,1,3,0],intersection_1_vpy=[3,3,1,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,2,1,1],[3,0,0,0,0,0],[0,3,2,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+11 : intersection_1_smove {intersection_1_vpx=[2,1,3,0],intersection_1_vpy=[3,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[3,0,0,2,0,0],[0,3,2,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+12 : intersection_1_smove {intersection_1_vpx=[2,3,3,1],intersection_1_vpy=[2,3,1,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,2,1,1],[0,3,2,0,0,0],[0,0,0,3,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+13 : intersection_1_smove {intersection_1_vpx=[2,3,3,1],intersection_1_vpy=[2,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,2,2,0,0],[0,0,0,3,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+14 : intersection_1_smove {intersection_1_vpx=[2,2,3,1],intersection_1_vpy=[2,3,1,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,2,1,1],[0,3,2,0,0,0],[0,0,3,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+15 : intersection_1_smove {intersection_1_vpx=[2,2,3,1],intersection_1_vpy=[2,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,2,2,0,0],[0,0,3,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+16 : intersection_1_smove {intersection_1_vpx=[2,1,3,1],intersection_1_vpy=[3,3,1,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,2,1,1],[0,3,0,0,0,0],[0,3,2,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+17 : intersection_1_smove {intersection_1_vpx=[2,1,3,1],intersection_1_vpy=[3,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,2,0,0],[0,3,2,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+18 : intersection_1_smove {intersection_1_vpx=[2,3,3,1],intersection_1_vpy=[3,3,1,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,2,1,1],[0,3,0,0,0,0],[0,0,2,3,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+19 : intersection_1_smove {intersection_1_vpx=[2,3,3,1],intersection_1_vpy=[4,3,1,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,2,1,1],[0,3,0,0,0,0],[0,0,0,3,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+20 : intersection_1_smove {intersection_1_vpx=[2,3,3,1],intersection_1_vpy=[3,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,2,0,0],[0,0,2,3,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+21 : intersection_1_smove {intersection_1_vpx=[2,3,3,1],intersection_1_vpy=[4,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,2,0,0],[0,0,0,3,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+22 : intersection_1_smove {intersection_1_vpx=[2,2,3,1],intersection_1_vpy=[2,3,1,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,2,1,1],[0,3,2,0,0,0],[0,0,3,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+23 : intersection_1_smove {intersection_1_vpx=[2,2,3,1],intersection_1_vpy=[2,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,2,2,0,0],[0,0,3,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+24 : intersection_1_smove {intersection_1_vpx=[2,1,3,1],intersection_1_vpy=[4,3,1,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,2,1,1],[0,3,0,0,0,0],[0,3,0,0,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+25 : intersection_1_smove {intersection_1_vpx=[2,1,3,1],intersection_1_vpy=[4,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,2,0,0],[0,3,0,0,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+26 : intersection_1_smove {intersection_1_vpx=[2,4,3,1],intersection_1_vpy=[3,3,1,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,2,1,1],[0,3,0,0,0,0],[0,0,2,0,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+27 : intersection_1_smove {intersection_1_vpx=[2,4,3,1],intersection_1_vpy=[4,3,1,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,2,1,1],[0,3,0,0,0,0],[0,0,0,0,3,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+28 : intersection_1_smove {intersection_1_vpx=[2,4,3,1],intersection_1_vpy=[3,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,2,0,0],[0,0,2,0,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+29 : intersection_1_smove {intersection_1_vpx=[2,4,3,1],intersection_1_vpy=[4,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,2,0,0],[0,0,0,0,3,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+30 : intersection_1_smove {intersection_1_vpx=[2,4,3,1],intersection_1_vpy=[2,3,1,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,2,1,1],[0,3,2,0,0,0],[0,0,0,0,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+31 : intersection_1_smove {intersection_1_vpx=[2,3,3,1],intersection_1_vpy=[2,3,1,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,2,1,1],[0,3,2,0,0,0],[0,0,0,3,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+32 : intersection_1_smove {intersection_1_vpx=[2,4,3,1],intersection_1_vpy=[2,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,2,2,0,0],[0,0,0,0,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+33 : intersection_1_smove {intersection_1_vpx=[2,3,3,1],intersection_1_vpy=[2,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,2,2,0,0],[0,0,0,3,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+34 : intersection_1_smove {intersection_1_vpx=[2,3,3,1],intersection_1_vpy=[4,3,1,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,2,1,1],[0,3,0,0,0,0],[0,0,0,3,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+35 : intersection_1_smove {intersection_1_vpx=[2,2,3,1],intersection_1_vpy=[4,3,1,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,2,1,1],[0,3,0,0,0,0],[0,0,3,0,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+36 : intersection_1_smove {intersection_1_vpx=[2,3,3,1],intersection_1_vpy=[4,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,2,0,0],[0,0,0,3,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+37 : intersection_1_smove {intersection_1_vpx=[2,2,3,1],intersection_1_vpy=[4,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,2,0,0],[0,0,3,0,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+38 : intersection_1_smove {intersection_1_vpx=[2,4,3,1],intersection_1_vpy=[3,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,2,0,0],[0,0,2,0,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+39 : intersection_1_smove {intersection_1_vpx=[2,4,3,1],intersection_1_vpy=[3,3,3,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,0,0,0],[0,0,2,2,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+40 : intersection_1_smove {intersection_1_vpx=[2,4,3,1],intersection_1_vpy=[4,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,2,0,0],[0,0,0,0,3,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+41 : intersection_1_smove {intersection_1_vpx=[2,4,3,1],intersection_1_vpy=[4,3,3,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,0,0,0],[0,0,0,2,3,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+42 : intersection_1_smove {intersection_1_vpx=[2,4,3,1],intersection_1_vpy=[3,3,4,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,0,0,0],[0,0,2,0,3,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+43 : intersection_1_smove {intersection_1_vpx=[2,4,3,1],intersection_1_vpy=[4,3,4,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,0,0,0],[0,0,0,0,3,0],[1,1,2,2,1,1],[1,1,0,0,1,1]]}
+44 : intersection_1_smove {intersection_1_vpx=[2,4,3,1],intersection_1_vpy=[2,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,2,2,0,0],[0,0,0,0,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+45 : intersection_1_smove {intersection_1_vpx=[2,4,3,1],intersection_1_vpy=[2,3,3,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,2,0,0,0],[0,0,0,2,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+46 : intersection_1_smove {intersection_1_vpx=[2,3,3,1],intersection_1_vpy=[2,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,2,2,0,0],[0,0,0,3,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+47 : intersection_1_smove {intersection_1_vpx=[2,4,3,1],intersection_1_vpy=[2,3,4,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,2,0,0,0],[0,0,0,0,3,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+48 : intersection_1_smove {intersection_1_vpx=[2,3,3,1],intersection_1_vpy=[4,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,2,0,0],[0,0,0,3,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+49 : intersection_1_smove {intersection_1_vpx=[2,2,3,1],intersection_1_vpy=[4,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,2,0,0],[0,0,3,0,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+50 : intersection_1_smove {intersection_1_vpx=[2,2,3,1],intersection_1_vpy=[4,3,3,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,0,0,0],[0,0,3,2,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+51 : intersection_1_smove {intersection_1_vpx=[2,2,3,1],intersection_1_vpy=[4,3,4,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,0,0,0],[0,0,3,0,0,0],[1,1,2,2,1,1],[1,1,0,0,1,1]]}
+52 : intersection_1_smove {intersection_1_vpx=[2,4,3,2],intersection_1_vpy=[3,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,2,0,0],[0,0,2,0,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+53 : intersection_1_smove {intersection_1_vpx=[2,4,3,2],intersection_1_vpy=[3,3,3,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,2,2,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+54 : intersection_1_smove {intersection_1_vpx=[2,4,3,2],intersection_1_vpy=[4,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,2,0,0],[0,0,0,0,3,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+55 : intersection_1_smove {intersection_1_vpx=[2,4,3,2],intersection_1_vpy=[4,3,3,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,2,3,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+56 : intersection_1_smove {intersection_1_vpx=[2,4,3,2],intersection_1_vpy=[3,3,4,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,2,0,3,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+57 : intersection_1_smove {intersection_1_vpx=[2,4,3,2],intersection_1_vpy=[4,3,4,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,0,3,0],[1,1,2,2,1,1],[1,1,0,0,1,1]]}
+58 : intersection_1_smove {intersection_1_vpx=[2,4,3,1],intersection_1_vpy=[2,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,2,2,0,0],[0,0,0,0,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+59 : intersection_1_smove {intersection_1_vpx=[2,4,3,1],intersection_1_vpy=[2,3,3,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,2,0,0,0],[0,0,0,2,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+60 : intersection_1_smove {intersection_1_vpx=[2,4,3,1],intersection_1_vpy=[2,3,4,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,2,0,0,0],[0,0,0,0,3,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+61 : intersection_1_smove {intersection_1_vpx=[2,3,3,2],intersection_1_vpy=[4,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,2,0,0],[0,0,0,3,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+62 : intersection_1_smove {intersection_1_vpx=[2,2,3,2],intersection_1_vpy=[4,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,2,0,0],[0,0,3,0,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+63 : intersection_1_smove {intersection_1_vpx=[2,2,3,2],intersection_1_vpy=[4,3,3,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,3,2,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+64 : intersection_1_smove {intersection_1_vpx=[2,2,3,2],intersection_1_vpy=[4,3,4,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,3,0,0,0],[1,1,2,2,1,1],[1,1,0,0,1,1]]}
+65 : intersection_1_smove {intersection_1_vpx=[2,4,3,2],intersection_1_vpy=[4,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,2,0,0],[0,0,0,0,3,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+66 : intersection_1_smove {intersection_1_vpx=[2,4,3,2],intersection_1_vpy=[4,3,3,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,2,3,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+67 : intersection_1_smove {intersection_1_vpx=[0,4,3,2],intersection_1_vpy=[0,3,2,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,2,0,0],[0,0,0,0,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+68 : intersection_1_smove {intersection_1_vpx=[0,4,3,2],intersection_1_vpy=[0,3,3,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,2,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+69 : intersection_1_smove {intersection_1_vpx=[2,4,3,2],intersection_1_vpy=[4,3,4,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,0,3,0],[1,1,2,2,1,1],[1,1,0,0,1,1]]}
+70 : intersection_1_smove {intersection_1_vpx=[0,4,3,2],intersection_1_vpy=[0,3,4,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,0,3,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+71 : intersection_1_smove {intersection_1_vpx=[2,4,3,1],intersection_1_vpy=[3,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,2,0,0],[0,0,2,0,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+72 : intersection_1_smove {intersection_1_vpx=[2,4,3,1],intersection_1_vpy=[4,3,2,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,2,0,0],[0,0,0,0,3,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+73 : intersection_1_smove {intersection_1_vpx=[2,4,3,1],intersection_1_vpy=[3,3,3,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,0,0,0],[0,0,2,2,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+74 : intersection_1_smove {intersection_1_vpx=[2,4,3,1],intersection_1_vpy=[4,3,3,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,0,0,0],[0,0,0,2,3,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+75 : intersection_1_smove {intersection_1_vpx=[2,4,3,1],intersection_1_vpy=[3,3,4,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,0,0,0],[0,0,2,0,3,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+76 : intersection_1_smove {intersection_1_vpx=[2,4,3,1],intersection_1_vpy=[4,3,4,2],intersection_1_vo=[1,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,0,0,0],[0,0,0,0,3,0],[1,1,2,2,1,1],[1,1,0,0,1,1]]}
+77 : intersection_1_smove {intersection_1_vpx=[0,3,3,2],intersection_1_vpy=[0,3,2,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,2,0,0],[0,0,0,3,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+78 : intersection_1_smove {intersection_1_vpx=[0,2,3,2],intersection_1_vpy=[0,3,2,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,2,0,0],[0,0,3,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+79 : intersection_1_smove {intersection_1_vpx=[0,2,3,2],intersection_1_vpy=[0,3,3,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,3,2,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+80 : intersection_1_smove {intersection_1_vpx=[0,2,3,2],intersection_1_vpy=[0,3,4,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,3,0,0,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+81 : intersection_1_smove {intersection_1_vpx=[2,0,3,2],intersection_1_vpy=[4,0,2,2],intersection_1_vo=[1,0,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,2,0,0],[0,0,0,0,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+82 : intersection_1_smove {intersection_1_vpx=[2,0,3,2],intersection_1_vpy=[4,0,3,2],intersection_1_vo=[1,0,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,2,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+83 : intersection_1_smove {intersection_1_vpx=[0,0,3,2],intersection_1_vpy=[0,0,2,2],intersection_1_vo=[0,0,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,2,0,0],[0,0,0,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+84 : intersection_1_smove {intersection_1_vpx=[0,0,3,2],intersection_1_vpy=[0,0,3,2],intersection_1_vo=[0,0,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,2,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+85 : intersection_1_smove {intersection_1_vpx=[2,0,3,2],intersection_1_vpy=[4,0,4,2],intersection_1_vo=[1,0,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,0,0,0],[1,1,2,2,1,1],[1,1,0,0,1,1]]}
+86 : intersection_1_smove {intersection_1_vpx=[0,0,3,2],intersection_1_vpy=[0,0,4,2],intersection_1_vo=[0,0,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,0,0,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+87 : intersection_1_smove {intersection_1_vpx=[2,0,3,1],intersection_1_vpy=[3,0,2,2],intersection_1_vo=[1,0,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,2,0,0],[0,0,2,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+88 : intersection_1_smove {intersection_1_vpx=[2,0,3,1],intersection_1_vpy=[4,0,2,2],intersection_1_vo=[1,0,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,2,0,0],[0,0,0,0,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+89 : intersection_1_smove {intersection_1_vpx=[2,0,3,1],intersection_1_vpy=[3,0,3,2],intersection_1_vo=[1,0,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,0,0,0],[0,0,2,2,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+90 : intersection_1_smove {intersection_1_vpx=[2,0,3,1],intersection_1_vpy=[4,0,3,2],intersection_1_vo=[1,0,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,0,0,0],[0,0,0,2,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+91 : intersection_1_smove {intersection_1_vpx=[2,0,3,1],intersection_1_vpy=[3,0,4,2],intersection_1_vo=[1,0,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,0,0,0],[0,0,2,0,0,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+92 : intersection_1_smove {intersection_1_vpx=[2,0,3,1],intersection_1_vpy=[4,0,4,2],intersection_1_vo=[1,0,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,0,0,0],[0,0,0,0,0,0],[1,1,2,2,1,1],[1,1,0,0,1,1]]}
+93 : intersection_1_smove {intersection_1_vpx=[0,4,3,2],intersection_1_vpy=[0,3,2,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,2,0,0],[0,0,0,0,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+94 : intersection_1_smove {intersection_1_vpx=[0,3,3,2],intersection_1_vpy=[0,3,2,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,2,0,0],[0,0,0,3,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+95 : intersection_1_smove {intersection_1_vpx=[0,2,3,2],intersection_1_vpy=[0,3,3,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,3,2,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+96 : intersection_1_smove {intersection_1_vpx=[0,4,3,2],intersection_1_vpy=[0,3,4,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,0,3,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+97 : intersection_1_smove {intersection_1_vpx=[0,3,3,2],intersection_1_vpy=[0,3,4,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,3,0,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+98 : intersection_1_smove {intersection_1_vpx=[2,0,3,2],intersection_1_vpy=[4,0,3,2],intersection_1_vo=[1,0,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,2,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+99 : intersection_1_smove {intersection_1_vpx=[2,0,3,2],intersection_1_vpy=[4,0,4,2],intersection_1_vo=[1,0,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,0,0,0],[1,1,2,2,1,1],[1,1,0,0,1,1]]}
+100 : intersection_1_smove {intersection_1_vpx=[0,0,3,2],intersection_1_vpy=[0,0,3,2],intersection_1_vo=[0,0,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,2,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+101 : intersection_1_smove {intersection_1_vpx=[0,0,3,2],intersection_1_vpy=[0,0,4,2],intersection_1_vo=[0,0,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,0,0,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+102 : intersection_1_smove {intersection_1_vpx=[2,0,0,2],intersection_1_vpy=[4,0,0,2],intersection_1_vo=[1,0,0,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,0,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+103 : intersection_1_smove {intersection_1_vpx=[0,0,0,2],intersection_1_vpy=[0,0,0,2],intersection_1_vo=[0,0,0,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+104 : intersection_1_smove {intersection_1_vpx=[2,0,3,1],intersection_1_vpy=[3,0,3,2],intersection_1_vo=[1,0,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,0,0,0],[0,0,2,2,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+105 : intersection_1_smove {intersection_1_vpx=[2,0,3,1],intersection_1_vpy=[3,0,4,2],intersection_1_vo=[1,0,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,0,0,0],[0,0,2,0,0,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+106 : intersection_1_smove {intersection_1_vpx=[2,0,3,1],intersection_1_vpy=[4,0,3,2],intersection_1_vo=[1,0,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,0,0,0],[0,0,0,2,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+107 : intersection_1_smove {intersection_1_vpx=[2,0,3,1],intersection_1_vpy=[4,0,4,2],intersection_1_vo=[1,0,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,0,0,0],[0,0,0,0,0,0],[1,1,2,2,1,1],[1,1,0,0,1,1]]}
+108 : intersection_1_smove {intersection_1_vpx=[2,0,0,1],intersection_1_vpy=[3,0,0,2],intersection_1_vo=[1,0,0,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,0,0,0],[0,0,2,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+109 : intersection_1_smove {intersection_1_vpx=[2,0,0,1],intersection_1_vpy=[4,0,0,2],intersection_1_vo=[1,0,0,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,3,0,0,0,0],[0,0,0,0,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+110 : intersection_1_smove {intersection_1_vpx=[0,4,3,2],intersection_1_vpy=[0,3,3,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,2,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+111 : intersection_1_smove {intersection_1_vpx=[0,4,3,2],intersection_1_vpy=[0,3,4,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,0,3,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+112 : intersection_1_smove {intersection_1_vpx=[0,3,3,2],intersection_1_vpy=[0,3,2,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,2,0,0],[0,0,0,3,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+113 : intersection_1_smove {intersection_1_vpx=[0,2,3,2],intersection_1_vpy=[0,3,4,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,3,0,0,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+114 : intersection_1_smove {intersection_1_vpx=[0,4,0,2],intersection_1_vpy=[0,3,0,2],intersection_1_vo=[0,1,0,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,0,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+115 : intersection_1_smove {intersection_1_vpx=[0,3,0,2],intersection_1_vpy=[0,3,0,2],intersection_1_vo=[0,1,0,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,3,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+116 : intersection_1_smove {intersection_1_vpx=[2,0,3,3],intersection_1_vpy=[4,0,3,2],intersection_1_vo=[1,0,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,2,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+117 : intersection_1_smove {intersection_1_vpx=[2,0,3,3],intersection_1_vpy=[4,0,4,2],intersection_1_vo=[1,0,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,0,0,0],[1,1,2,2,1,1],[1,1,0,0,1,1]]}
+118 : intersection_1_smove {intersection_1_vpx=[0,0,3,3],intersection_1_vpy=[0,0,3,2],intersection_1_vo=[0,0,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,2,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+119 : intersection_1_smove {intersection_1_vpx=[0,0,3,3],intersection_1_vpy=[0,0,4,2],intersection_1_vo=[0,0,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,0,0,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+120 : intersection_1_smove {intersection_1_vpx=[2,0,0,3],intersection_1_vpy=[4,0,0,2],intersection_1_vo=[1,0,0,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,0,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+121 : intersection_1_smove {intersection_1_vpx=[0,0,0,3],intersection_1_vpy=[0,0,0,2],intersection_1_vo=[0,0,0,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+122 : intersection_1_smove {intersection_1_vpx=[2,0,3,2],intersection_1_vpy=[3,0,3,2],intersection_1_vo=[1,0,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,2,2,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+123 : intersection_1_smove {intersection_1_vpx=[2,0,3,2],intersection_1_vpy=[3,0,4,2],intersection_1_vo=[1,0,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,2,0,0,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+124 : intersection_1_smove {intersection_1_vpx=[2,0,3,2],intersection_1_vpy=[4,0,3,2],intersection_1_vo=[1,0,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,2,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+125 : intersection_1_smove {intersection_1_vpx=[2,0,3,2],intersection_1_vpy=[4,0,4,2],intersection_1_vo=[1,0,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,0,0,0],[1,1,2,2,1,1],[1,1,0,0,1,1]]}
+126 : intersection_1_smove {intersection_1_vpx=[2,0,0,2],intersection_1_vpy=[3,0,0,2],intersection_1_vo=[1,0,0,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,2,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+127 : intersection_1_smove {intersection_1_vpx=[2,0,0,2],intersection_1_vpy=[4,0,0,2],intersection_1_vo=[1,0,0,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,0,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+128 : intersection_1_smove {intersection_1_vpx=[0,4,3,3],intersection_1_vpy=[0,3,3,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,2,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+129 : intersection_1_smove {intersection_1_vpx=[0,4,3,3],intersection_1_vpy=[0,3,4,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,0,3,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+130 : intersection_1_smove {intersection_1_vpx=[0,3,3,2],intersection_1_vpy=[0,3,2,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,2,0,0],[0,0,0,3,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+131 : intersection_1_smove {intersection_1_vpx=[0,2,3,3],intersection_1_vpy=[0,3,4,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,3,0,0,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+132 : intersection_1_smove {intersection_1_vpx=[0,4,0,3],intersection_1_vpy=[0,3,0,2],intersection_1_vo=[0,1,0,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,0,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+133 : intersection_1_smove {intersection_1_vpx=[0,3,0,3],intersection_1_vpy=[0,3,0,2],intersection_1_vo=[0,1,0,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,3,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+134 : intersection_1_smove {intersection_1_vpx=[0,0,3,3],intersection_1_vpy=[0,0,3,2],intersection_1_vo=[0,0,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,2,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+135 : intersection_1_smove {intersection_1_vpx=[0,0,3,3],intersection_1_vpy=[0,0,4,2],intersection_1_vo=[0,0,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,0,0,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+136 : intersection_1_smove {intersection_1_vpx=[0,0,0,3],intersection_1_vpy=[0,0,0,2],intersection_1_vo=[0,0,0,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+137 : intersection_1_smove {intersection_1_vpx=[2,0,3,2],intersection_1_vpy=[4,0,3,2],intersection_1_vo=[1,0,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,2,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+138 : intersection_1_smove {intersection_1_vpx=[2,0,3,2],intersection_1_vpy=[4,0,4,2],intersection_1_vo=[1,0,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,0,0,0],[1,1,2,2,1,1],[1,1,0,0,1,1]]}
+139 : intersection_1_smove {intersection_1_vpx=[0,0,3,2],intersection_1_vpy=[0,0,3,2],intersection_1_vo=[0,0,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,2,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+140 : intersection_1_smove {intersection_1_vpx=[0,0,3,2],intersection_1_vpy=[0,0,4,2],intersection_1_vo=[0,0,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,0,0,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+141 : intersection_1_smove {intersection_1_vpx=[2,0,0,2],intersection_1_vpy=[4,0,0,2],intersection_1_vo=[1,0,0,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,0,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+142 : intersection_1_smove {intersection_1_vpx=[0,0,0,2],intersection_1_vpy=[0,0,0,2],intersection_1_vo=[0,0,0,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+143 : intersection_1_smove {intersection_1_vpx=[0,4,3,3],intersection_1_vpy=[0,3,3,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,2,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+144 : intersection_1_smove {intersection_1_vpx=[0,4,3,3],intersection_1_vpy=[0,3,4,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,0,3,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+145 : intersection_1_smove {intersection_1_vpx=[0,2,3,3],intersection_1_vpy=[0,3,4,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,3,0,0,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+146 : intersection_1_smove {intersection_1_vpx=[0,4,0,3],intersection_1_vpy=[0,3,0,2],intersection_1_vo=[0,1,0,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,0,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+147 : intersection_1_smove {intersection_1_vpx=[0,3,0,3],intersection_1_vpy=[0,3,0,2],intersection_1_vo=[0,1,0,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,3,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+148 : intersection_1_smove {intersection_1_vpx=[0,0,3,3],intersection_1_vpy=[0,0,3,2],intersection_1_vo=[0,0,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,2,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+149 : intersection_1_smove {intersection_1_vpx=[0,0,3,3],intersection_1_vpy=[0,0,4,2],intersection_1_vo=[0,0,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,0,0,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+150 : intersection_1_smove {intersection_1_vpx=[0,0,0,3],intersection_1_vpy=[0,0,0,2],intersection_1_vo=[0,0,0,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+151 : intersection_1_smove {intersection_1_vpx=[2,0,0,2],intersection_1_vpy=[4,0,0,2],intersection_1_vo=[1,0,0,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,0,0,0],[1,1,2,0,1,1],[1,1,0,0,1,1]]}
+152 : intersection_1_smove {intersection_1_vpx=[0,0,0,2],intersection_1_vpy=[0,0,0,2],intersection_1_vo=[0,0,0,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,3,0,0,0],[0,0,0,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+153 : intersection_1_smove {intersection_1_vpx=[0,4,3,3],intersection_1_vpy=[0,3,4,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,0,3,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+154 : intersection_1_smove {intersection_1_vpx=[0,3,3,3],intersection_1_vpy=[0,3,4,2],intersection_1_vo=[0,1,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,3,0,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+155 : intersection_1_smove {intersection_1_vpx=[0,4,0,3],intersection_1_vpy=[0,3,0,2],intersection_1_vo=[0,1,0,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,0,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+156 : intersection_1_smove {intersection_1_vpx=[0,0,3,3],intersection_1_vpy=[0,0,4,2],intersection_1_vo=[0,0,1,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,0,0,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+157 : intersection_1_smove {intersection_1_vpx=[0,0,0,3],intersection_1_vpy=[0,0,0,2],intersection_1_vo=[0,0,0,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+158 : intersection_1_smove {intersection_1_vpx=[0,4,0,3],intersection_1_vpy=[0,3,0,2],intersection_1_vo=[0,1,0,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,0,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+159 : intersection_1_smove {intersection_1_vpx=[0,3,0,3],intersection_1_vpy=[0,3,0,2],intersection_1_vo=[0,1,0,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,3,0,0],[0,0,0,3,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+160 : intersection_1_smove {intersection_1_vpx=[0,0,3,4],intersection_1_vpy=[0,0,4,2],intersection_1_vo=[0,0,1,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,0,3,0],[0,0,0,0,0,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+161 : intersection_1_smove {intersection_1_vpx=[0,0,0,4],intersection_1_vpy=[0,0,0,2],intersection_1_vo=[0,0,0,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,0,3,0],[0,0,0,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+162 : intersection_1_smove {intersection_1_vpx=[0,4,0,4],intersection_1_vpy=[0,3,0,2],intersection_1_vo=[0,1,0,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,0,3,0],[0,0,0,0,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+163 : intersection_1_smove {intersection_1_vpx=[0,3,0,4],intersection_1_vpy=[0,3,0,2],intersection_1_vo=[0,1,0,1],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,0,3,0],[0,0,0,3,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+164 : intersection_1_smove {intersection_1_vpx=[0,0,3,4],intersection_1_vpy=[0,0,4,2],intersection_1_vo=[0,0,1,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,0,3,0],[0,0,0,0,0,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+165 : intersection_1_smove {intersection_1_vpx=[0,0,0,4],intersection_1_vpy=[0,0,0,2],intersection_1_vo=[0,0,0,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,0,3,0],[0,0,0,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+166 : intersection_1_smove {intersection_1_vpx=[0,4,0,4],intersection_1_vpy=[0,3,0,2],intersection_1_vo=[0,1,0,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,0,3,0],[0,0,0,0,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+167 : intersection_1_smove {intersection_1_vpx=[0,3,0,4],intersection_1_vpy=[0,3,0,2],intersection_1_vo=[0,1,0,1],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,0,3,0],[0,0,0,3,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+168 : intersection_1_smove {intersection_1_vpx=[0,0,3,4],intersection_1_vpy=[0,0,4,2],intersection_1_vo=[0,0,1,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,0,3,0],[0,0,0,0,0,0],[1,1,0,2,1,1],[1,1,0,0,1,1]]}
+169 : intersection_1_smove {intersection_1_vpx=[0,0,0,4],intersection_1_vpy=[0,0,0,2],intersection_1_vo=[0,0,0,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,0,3,0],[0,0,0,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+170 : intersection_1_smove {intersection_1_vpx=[0,4,0,4],intersection_1_vpy=[0,3,0,2],intersection_1_vo=[0,1,0,1],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,0,3,0],[0,0,0,0,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+171 : intersection_1_smove {intersection_1_vpx=[0,0,0,4],intersection_1_vpy=[0,0,0,2],intersection_1_vo=[0,0,0,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,0,3,0],[0,0,0,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+172 : intersection_1_smove {intersection_1_vpx=[0,4,0,4],intersection_1_vpy=[0,3,0,2],intersection_1_vo=[0,1,0,1],intersection_1_vt=3,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,0,3,0],[0,0,0,0,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+173 : intersection_1_smove {intersection_1_vpx=[0,0,0,0],intersection_1_vpy=[0,0,0,0],intersection_1_vo=[0,0,0,0],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,0,0,0],[0,0,0,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+174 : intersection_1_smove {intersection_1_vpx=[0,4,0,0],intersection_1_vpy=[0,3,0,0],intersection_1_vo=[0,1,0,0],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,0,0,0],[0,0,0,0,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+175 : intersection_1_sdone {intersection_1_vpx=[0,0,0,0],intersection_1_vpy=[0,0,0,0],intersection_1_vo=[0,0,0,0],intersection_1_vt=0,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,0,0,0],[0,0,0,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+176 : intersection_1_smove {intersection_1_vpx=[0,4,0,0],intersection_1_vpy=[0,3,0,0],intersection_1_vo=[0,1,0,0],intersection_1_vt=1,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,0,0,0],[0,0,0,0,3,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+177 : intersection_1_smove {intersection_1_vpx=[0,0,0,0],intersection_1_vpy=[0,0,0,0],intersection_1_vo=[0,0,0,0],intersection_1_vt=2,intersection_1_va=[[1,1,0,0,1,1],[1,1,0,0,1,1],[0,0,0,0,0,0],[0,0,0,0,0,0],[1,1,0,0,1,1],[1,1,0,0,1,1]]}
+
+REACHABILITY GRAPH:
+
+0 -> intersection_1_t6/1, intersection_1_t7/2
+1 -> intersection_1_t10/3, intersection_1_t9/4
+2 -> intersection_1_t12/5
+3 -> intersection_1_t6/6, intersection_1_t7/7
+4 -> intersection_1_t6/8, intersection_1_t7/9
+5 -> intersection_1_t6/10, intersection_1_t7/11
+6 -> intersection_1_t11/12
+7 -> intersection_1_t11/13
+8 -> intersection_1_t11/14
+9 -> intersection_1_t11/15
+10 -> intersection_1_t11/16
+11 -> intersection_1_t11/17
+12 -> intersection_1_t6/18, intersection_1_t7/19
+13 -> intersection_1_t6/20, intersection_1_t7/21
+14 -> intersection_1_t8/22
+15 -> intersection_1_t8/23
+16 -> intersection_1_t6/24
+17 -> intersection_1_t6/25
+18 -> intersection_1_t9/26
+19 -> intersection_1_t9/27
+20 -> intersection_1_t9/28
+21 -> intersection_1_t9/29
+22 -> intersection_1_t10/30, intersection_1_t9/31
+23 -> intersection_1_t10/32, intersection_1_t9/33
+24 -> intersection_1_t10/34, intersection_1_t9/35
+25 -> intersection_1_t10/36, intersection_1_t9/37
+26 -> intersection_1_t6/38, intersection_1_t7/39
+27 -> intersection_1_t6/40, intersection_1_t7/41
+28 -> intersection_1_t6/39, intersection_1_t7/42
+29 -> intersection_1_t6/41, intersection_1_t7/43
+30 -> intersection_1_t6/44, intersection_1_t7/45
+31 -> intersection_1_t6/46
+32 -> intersection_1_t6/45, intersection_1_t7/47
+33 -> intersection_1_t8/46
+34 -> intersection_1_t6/48
+35 -> intersection_1_t6/49, intersection_1_t7/50
+36 -> intersection_1_t8/48
+37 -> intersection_1_t6/50, intersection_1_t7/51
+38 -> intersection_1_t11/52
+39 -> intersection_1_t11/53
+40 -> intersection_1_t11/54
+41 -> intersection_1_t11/55
+42 -> intersection_1_t11/56
+43 -> intersection_1_t11/57
+44 -> intersection_1_t13/58
+45 -> intersection_1_t13/59
+46 -> intersection_1_t13/13
+47 -> intersection_1_t13/60
+48 -> intersection_1_t11/61
+49 -> intersection_1_t11/62
+50 -> intersection_1_t11/63
+51 -> intersection_1_t11/64
+52 -> intersection_1_t6/65
+53 -> intersection_1_t6/66
+54 -> intersection_1_t1/67
+55 -> intersection_1_t1/68
+56 -> intersection_1_t6/69
+57 -> intersection_1_t1/70
+58 -> intersection_1_t6/71, intersection_1_t7/72
+59 -> intersection_1_t6/73, intersection_1_t7/74
+60 -> intersection_1_t6/75, intersection_1_t7/76
+61 -> intersection_1_t1/77
+62 -> intersection_1_t1/78
+63 -> intersection_1_t1/79
+64 -> intersection_1_t1/80
+65 -> intersection_1_t2/81
+66 -> intersection_1_t2/82
+67 -> intersection_1_t2/83
+68 -> intersection_1_t2/84
+69 -> intersection_1_t2/85
+70 -> intersection_1_t2/86
+71 -> intersection_1_t2/87
+72 -> intersection_1_t2/88
+73 -> intersection_1_t2/89
+74 -> intersection_1_t2/90
+75 -> intersection_1_t2/91
+76 -> intersection_1_t2/92
+77 -> intersection_1_t9/93
+78 -> intersection_1_t10/93, intersection_1_t9/94
+79 -> intersection_1_t12/95
+80 -> intersection_1_t10/96, intersection_1_t9/97
+81 -> intersection_1_t6/98, intersection_1_t7/99
+82 -> intersection_1_t6/99
+83 -> intersection_1_t6/100, intersection_1_t7/101
+84 -> intersection_1_t6/101
+85 -> intersection_1_t1/102
+86 -> intersection_1_t1/103
+87 -> intersection_1_t6/104, intersection_1_t7/105
+88 -> intersection_1_t6/106, intersection_1_t7/107
+89 -> intersection_1_t6/105
+90 -> intersection_1_t6/107
+91 -> intersection_1_t1/108
+92 -> intersection_1_t1/109
+93 -> intersection_1_t6/110, intersection_1_t7/111
+94 -> intersection_1_t8/112
+95 -> intersection_1_t6/113
+96 -> intersection_1_t1/114
+97 -> intersection_1_t1/115
+98 -> intersection_1_t11/116
+99 -> intersection_1_t11/117
+100 -> intersection_1_t11/118
+101 -> intersection_1_t11/119
+102 -> intersection_1_t11/120
+103 -> intersection_1_t11/121
+104 -> intersection_1_t11/122
+105 -> intersection_1_t11/123
+106 -> intersection_1_t11/124
+107 -> intersection_1_t11/125
+108 -> intersection_1_t11/126
+109 -> intersection_1_t11/127
+110 -> intersection_1_t11/128
+111 -> intersection_1_t11/129
+112 -> intersection_1_t13/130
+113 -> intersection_1_t11/131
+114 -> intersection_1_t11/132
+115 -> intersection_1_t11/133
+116 -> intersection_1_t1/134
+117 -> intersection_1_t1/135
+118 -> intersection_1_t4/134
+119 -> intersection_1_t4/135
+120 -> intersection_1_t1/136
+121 -> intersection_1_t4/136
+122 -> intersection_1_t6/137
+123 -> intersection_1_t6/138
+124 -> intersection_1_t1/139
+125 -> intersection_1_t1/140
+126 -> intersection_1_t6/141
+127 -> intersection_1_t1/142
+128 -> intersection_1_t4/143
+129 -> intersection_1_t4/144
+130 -> intersection_1_t4/77
+131 -> intersection_1_t4/145
+132 -> intersection_1_t4/146
+133 -> intersection_1_t4/147
+134 -> intersection_1_t4/148
+135 -> intersection_1_t4/149
+136 -> intersection_1_t4/150
+137 -> intersection_1_t4/82
+138 -> intersection_1_t4/85
+139 -> intersection_1_t4/84
+140 -> intersection_1_t4/86
+141 -> intersection_1_t4/151
+142 -> intersection_1_t4/152
+143 -> intersection_1_t2/148
+144 -> intersection_1_t2/149
+145 -> intersection_1_t10/153, intersection_1_t9/154
+146 -> intersection_1_t2/150
+147 -> intersection_1_t9/155
+148 -> intersection_1_t6/156
+149 -> intersection_1_t1/157
+150 -> intersection_1_t4/157
+151 -> intersection_1_t4/102
+152 -> intersection_1_t4/103
+153 -> intersection_1_t1/158
+154 -> intersection_1_t1/159
+155 -> intersection_1_t4/158
+156 -> intersection_1_t11/160
+157 -> intersection_1_t11/161
+158 -> intersection_1_t11/162
+159 -> intersection_1_t11/163
+160 -> intersection_1_t4/164
+161 -> intersection_1_t4/165
+162 -> intersection_1_t4/166
+163 -> intersection_1_t4/167
+164 -> intersection_1_t4/168
+165 -> intersection_1_t4/169
+166 -> intersection_1_t2/169
+167 -> intersection_1_t9/170
+168 -> intersection_1_t1/171
+169 -> intersection_1_t4/171
+170 -> intersection_1_t4/172
+171 -> intersection_1_t3/173
+172 -> intersection_1_t3/174
+173 -> intersection_1_t0/175
+174 -> intersection_1_t4/176
+175 -> 
+176 -> intersection_1_t2/177
+177 -> intersection_1_t0/175
+
+0.000s
+
+LIVENESS ANALYSIS ----------------------------------------------- 
+
+not live
+not reversible
+
+1 dead marking(s), 1 live marking(s)
+1 dead transition(s), 0 live transition(s)
+
+dead marking(s): 175
+
+dead transition(s): intersection_1_t5
+
+STRONG CONNECTED COMPONENTS:
+
+0 : 175
+1 : 173
+2 : 171
+3 : 168
+4 : 164
+5 : 160
+6 : 156
+7 : 148
+8 : 134
+9 : 116
+10 : 98
+11 : 169
+12 : 165
+13 : 161
+14 : 157
+15 : 149
+16 : 135
+17 : 117
+18 : 99
+19 : 81
+20 : 65
+21 : 52
+22 : 38
+23 : 82
+24 : 66
+25 : 53
+26 : 39
+27 : 26
+28 : 18
+29 : 118
+30 : 100
+31 : 119
+32 : 101
+33 : 83
+34 : 67
+35 : 54
+36 : 40
+37 : 84
+38 : 68
+39 : 55
+40 : 41
+41 : 27
+42 : 19
+43 : 12
+44 : 6
+45 : 150
+46 : 136
+47 : 120
+48 : 102
+49 : 85
+50 : 69
+51 : 56
+52 : 42
+53 : 28
+54 : 20
+55 : 121
+56 : 103
+57 : 86
+58 : 70
+59 : 57
+60 : 43
+61 : 29
+62 : 21
+63 : 13
+64 : 7
+65 : 3
+66 : 137
+67 : 122
+68 : 104
+69 : 138
+70 : 123
+71 : 105
+72 : 87
+73 : 71
+74 : 139
+75 : 124
+76 : 106
+77 : 140
+78 : 125
+79 : 107
+80 : 88
+81 : 72
+82 : 58
+83 : 44
+84 : 89
+85 : 73
+86 : 90
+87 : 74
+88 : 59
+89 : 45
+90 : 30
+91 : 46
+92 : 31
+93 : 22
+94 : 14
+95 : 8
+96 : 151
+97 : 141
+98 : 126
+99 : 108
+100 : 91
+101 : 75
+102 : 152
+103 : 142
+104 : 127
+105 : 109
+106 : 92
+107 : 76
+108 : 60
+109 : 47
+110 : 32
+111 : 33
+112 : 23
+113 : 15
+114 : 9
+115 : 4
+116 : 1
+117 : 143
+118 : 128
+119 : 110
+120 : 144
+121 : 129
+122 : 111
+123 : 93
+124 : 77
+125 : 61
+126 : 48
+127 : 34
+128 : 130
+129 : 112
+130 : 94
+131 : 78
+132 : 62
+133 : 49
+134 : 166
+135 : 162
+136 : 158
+137 : 153
+138 : 177
+139 : 176
+140 : 174
+141 : 172
+142 : 170
+143 : 167
+144 : 163
+145 : 159
+146 : 154
+147 : 145
+148 : 131
+149 : 113
+150 : 95
+151 : 79
+152 : 63
+153 : 50
+154 : 35
+155 : 24
+156 : 16
+157 : 10
+158 : 36
+159 : 146
+160 : 132
+161 : 114
+162 : 96
+163 : 155
+164 : 147
+165 : 133
+166 : 115
+167 : 97
+168 : 80
+169 : 64
+170 : 51
+171 : 37
+172 : 25
+173 : 17
+174 : 11
+175 : 5
+176 : 2
+177 : 0
+
+SCC GRAPH:
+
+0 ->
+1 -> intersection_1_t0/0
+2 -> intersection_1_t3/1
+3 -> intersection_1_t1/2
+4 -> intersection_1_t4/3
+5 -> intersection_1_t4/4
+6 -> intersection_1_t11/5
+7 -> intersection_1_t6/6
+8 -> intersection_1_t4/7
+9 -> intersection_1_t1/8
+10 -> intersection_1_t11/9
+11 -> intersection_1_t4/2
+12 -> intersection_1_t4/11
+13 -> intersection_1_t4/12
+14 -> intersection_1_t11/13
+15 -> intersection_1_t1/14
+16 -> intersection_1_t4/15
+17 -> intersection_1_t1/16
+18 -> intersection_1_t11/17
+19 -> intersection_1_t6/10, intersection_1_t7/18
+20 -> intersection_1_t2/19
+21 -> intersection_1_t6/20
+22 -> intersection_1_t11/21
+23 -> intersection_1_t6/18
+24 -> intersection_1_t2/23
+25 -> intersection_1_t6/24
+26 -> intersection_1_t11/25
+27 -> intersection_1_t6/22, intersection_1_t7/26
+28 -> intersection_1_t9/27
+29 -> intersection_1_t4/8
+30 -> intersection_1_t11/29
+31 -> intersection_1_t4/16
+32 -> intersection_1_t11/31
+33 -> intersection_1_t6/30, intersection_1_t7/32
+34 -> intersection_1_t2/33
+35 -> intersection_1_t1/34
+36 -> intersection_1_t11/35
+37 -> intersection_1_t6/32
+38 -> intersection_1_t2/37
+39 -> intersection_1_t1/38
+40 -> intersection_1_t11/39
+41 -> intersection_1_t6/36, intersection_1_t7/40
+42 -> intersection_1_t9/41
+43 -> intersection_1_t6/28, intersection_1_t7/42
+44 -> intersection_1_t11/43
+45 -> intersection_1_t4/14
+46 -> intersection_1_t4/45
+47 -> intersection_1_t1/46
+48 -> intersection_1_t11/47
+49 -> intersection_1_t1/48
+50 -> intersection_1_t2/49
+51 -> intersection_1_t6/50
+52 -> intersection_1_t11/51
+53 -> intersection_1_t6/26, intersection_1_t7/52
+54 -> intersection_1_t9/53
+55 -> intersection_1_t4/46
+56 -> intersection_1_t11/55
+57 -> intersection_1_t1/56
+58 -> intersection_1_t2/57
+59 -> intersection_1_t1/58
+60 -> intersection_1_t11/59
+61 -> intersection_1_t6/40, intersection_1_t7/60
+62 -> intersection_1_t9/61
+63 -> intersection_1_t6/54, intersection_1_t7/62
+64 -> intersection_1_t11/63
+65 -> intersection_1_t6/44, intersection_1_t7/64
+66 -> intersection_1_t4/23
+67 -> intersection_1_t6/66
+68 -> intersection_1_t11/67
+69 -> intersection_1_t4/49
+70 -> intersection_1_t6/69
+71 -> intersection_1_t11/70
+72 -> intersection_1_t6/68, intersection_1_t7/71
+73 -> intersection_1_t2/72
+74 -> intersection_1_t4/37
+75 -> intersection_1_t1/74
+76 -> intersection_1_t11/75
+77 -> intersection_1_t4/57
+78 -> intersection_1_t1/77
+79 -> intersection_1_t11/78
+80 -> intersection_1_t6/76, intersection_1_t7/79
+81 -> intersection_1_t2/80
+82 -> intersection_1_t6/73, intersection_1_t7/81
+83 -> intersection_1_t13/82
+84 -> intersection_1_t6/71
+85 -> intersection_1_t2/84
+86 -> intersection_1_t6/79
+87 -> intersection_1_t2/86
+88 -> intersection_1_t6/85, intersection_1_t7/87
+89 -> intersection_1_t13/88
+90 -> intersection_1_t6/83, intersection_1_t7/89
+91 -> intersection_1_t13/63
+92 -> intersection_1_t6/91
+93 -> intersection_1_t10/90, intersection_1_t9/92
+94 -> intersection_1_t8/93
+95 -> intersection_1_t11/94
+96 -> intersection_1_t4/48
+97 -> intersection_1_t4/96
+98 -> intersection_1_t6/97
+99 -> intersection_1_t11/98
+100 -> intersection_1_t1/99
+101 -> intersection_1_t2/100
+102 -> intersection_1_t4/56
+103 -> intersection_1_t4/102
+104 -> intersection_1_t1/103
+105 -> intersection_1_t11/104
+106 -> intersection_1_t1/105
+107 -> intersection_1_t2/106
+108 -> intersection_1_t6/101, intersection_1_t7/107
+109 -> intersection_1_t13/108
+110 -> intersection_1_t6/89, intersection_1_t7/109
+111 -> intersection_1_t8/91
+112 -> intersection_1_t10/110, intersection_1_t9/111
+113 -> intersection_1_t8/112
+114 -> intersection_1_t11/113
+115 -> intersection_1_t6/95, intersection_1_t7/114
+116 -> intersection_1_t10/65, intersection_1_t9/115
+117 -> intersection_1_t2/7
+118 -> intersection_1_t4/117
+119 -> intersection_1_t11/118
+120 -> intersection_1_t2/15
+121 -> intersection_1_t4/120
+122 -> intersection_1_t11/121
+123 -> intersection_1_t6/119, intersection_1_t7/122
+124 -> intersection_1_t9/123
+125 -> intersection_1_t1/124
+126 -> intersection_1_t11/125
+127 -> intersection_1_t6/126
+128 -> intersection_1_t4/124
+129 -> intersection_1_t13/128
+130 -> intersection_1_t8/129
+131 -> intersection_1_t10/123, intersection_1_t9/130
+132 -> intersection_1_t1/131
+133 -> intersection_1_t11/132
+134 -> intersection_1_t2/11
+135 -> intersection_1_t4/134
+136 -> intersection_1_t11/135
+137 -> intersection_1_t1/136
+138 -> intersection_1_t0/0
+139 -> intersection_1_t2/138
+140 -> intersection_1_t4/139
+141 -> intersection_1_t3/140
+142 -> intersection_1_t4/141
+143 -> intersection_1_t9/142
+144 -> intersection_1_t4/143
+145 -> intersection_1_t11/144
+146 -> intersection_1_t1/145
+147 -> intersection_1_t10/137, intersection_1_t9/146
+148 -> intersection_1_t4/147
+149 -> intersection_1_t11/148
+150 -> intersection_1_t6/149
+151 -> intersection_1_t12/150
+152 -> intersection_1_t1/151
+153 -> intersection_1_t11/152
+154 -> intersection_1_t6/133, intersection_1_t7/153
+155 -> intersection_1_t10/127, intersection_1_t9/154
+156 -> intersection_1_t6/155
+157 -> intersection_1_t11/156
+158 -> intersection_1_t8/126
+159 -> intersection_1_t2/45
+160 -> intersection_1_t4/159
+161 -> intersection_1_t11/160
+162 -> intersection_1_t1/161
+163 -> intersection_1_t4/136
+164 -> intersection_1_t9/163
+165 -> intersection_1_t4/164
+166 -> intersection_1_t11/165
+167 -> intersection_1_t1/166
+168 -> intersection_1_t10/162, intersection_1_t9/167
+169 -> intersection_1_t1/168
+170 -> intersection_1_t11/169
+171 -> intersection_1_t6/153, intersection_1_t7/170
+172 -> intersection_1_t10/158, intersection_1_t9/171
+173 -> intersection_1_t6/172
+174 -> intersection_1_t11/173
+175 -> intersection_1_t6/157, intersection_1_t7/174
+176 -> intersection_1_t12/175
+177 -> intersection_1_t6/116, intersection_1_t7/176
+
+0.000s
+
+ANALYSIS COMPLETED ---------------------------------------------- 
+

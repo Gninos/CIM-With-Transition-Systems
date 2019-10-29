@@ -1,0 +1,21 @@
+
+net process_intersection_1
+
+pl intersection_1_sdone (0)
+pl intersection_1_smove (1)
+
+tr intersection_1_t0  [0,w[   intersection_1_smove -> intersection_1_sdone
+tr intersection_1_t1  [0,w[   intersection_1_smove -> intersection_1_smove
+tr intersection_1_t2  [0,w[   intersection_1_smove -> intersection_1_smove
+tr intersection_1_t3  [0,w[   intersection_1_smove -> intersection_1_smove
+tr intersection_1_t4  [0,w[   intersection_1_smove -> intersection_1_smove
+tr intersection_1_t5  [0,w[   intersection_1_smove -> intersection_1_smove
+tr intersection_1_t6  [0,w[   intersection_1_smove -> intersection_1_smove
+tr intersection_1_t7  [0,w[   intersection_1_smove -> intersection_1_smove
+tr intersection_1_t8  [0,w[   intersection_1_smove -> intersection_1_smove
+tr intersection_1_t9  [0,w[   intersection_1_smove -> intersection_1_smove
+tr intersection_1_t10  [0,w[   intersection_1_smove -> intersection_1_smove
+tr intersection_1_t11  [0,w[   intersection_1_smove -> intersection_1_smove
+tr intersection_1_t12  [0,w[   intersection_1_smove -> intersection_1_smove
+tr intersection_1_t13  [0,w[   intersection_1_smove -> intersection_1_smove
+

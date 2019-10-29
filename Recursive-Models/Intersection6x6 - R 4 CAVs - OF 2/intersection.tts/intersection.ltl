@@ -1,0 +1,54 @@
+
+
+# general
+op deadlockFree = [] - dead;
+op infinitelyOften L = [] <> L;
+op mortal L = <> [] - L;
+
+
+# patterns, source http://patterns.projects.cis.ksu.edu/documentation/patterns.shtml
+
+# Weak until
+infix 0 p W q = p U (q \/ []p);
+
+# absence
+op absent P = [] - P;
+op absentBefore P R = <>R => (-P U R);
+op absentAfter P Q = [](Q => [] - P);
+op absentBetween P Q R = [] ((Q /\ -R /\ <>R) => (-P U R));
+op absentUntil P Q R = [](Q /\ -R => (-P W R));
+
+# presence
+op present P = <> P;
+op presentBefore P Q = -Q W (P /\ -Q);
+op presentAfter P Q = [] - Q \/ <> (Q /\ <>P);
+op presentBetween P Q R = [] (Q /\ -R => (-R W (P /\ -R)));
+op presentUntil P Q R = [] (Q /\ -R => (-R U (P /\ -R)));
+
+# universality
+op always P = [] P;
+op alwaysBefore P R = <> R => (P U R);
+op alwaysAfter P Q = [] (Q => []P);
+op alwaysBetween P Q R = [] ((Q /\ -R /\ <>R) => (P U R));
+op alwaysUntil P Q R = [] (Q /\ -R => (P W R));
+
+# precedence
+op precedes S P = -P W S;
+op precedesBefore S P R = <>R => (-P U (S \/ R));
+op precedesAfter S P Q = [] - Q \/ <>(Q /\ (-P W S));
+op precedesBetween S P Q R = []((Q /\ -R /\ <>R) => (-P U (S \/ R)));
+op precedesUntil S P Q R = [](Q /\ -R => (-P W (S \/ R)));
+
+# response
+op leadsto P S = [] (P => <>S);
+op leadstoBefore P S R = <>R => (P => (-R U (S /\ -R))) U R;
+op leadstoAfter P S Q = [] (Q => [](P => <>S));
+op leadstoBetween P S Q R = [] ((Q /\ -R /\ <>R) => (P => (-R U (S /\ -R))) U R);
+op leadstoUntil P S Q R = [] (Q /\ -R => ((P => (-R U (S /\ -R))) W R));
+
+
+
+# user formulas
+op target = [] (- ((intersection_1_sdone)));
+target;
+
