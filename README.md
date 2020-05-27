@@ -38,7 +38,7 @@ Now, you have to install FRAC/TINA/SELT. Follow the steps:
 
 - Now, go to your home directory (/home/user), by typing: cd ~
 - Type: **sudo nano ~/.bash_profile**
-- Add the frac and Tina directory to your PATH environment variable by adding the following lines to the end of the file: **export PATH="$PATH:/mnt/c/.../frac-x.y.z"** and **export PATH="$PATH:/mnt/c/Users/georg/Documents/Fiacre/tina-3.5.0/bin"**
+- Add the frac and Tina directory to your PATH environment variable by adding the following lines to the end of the file: **export PATH="$PATH:/mnt/c/.../frac-x.y.z"** and **export PATH="$PATH:/mnt/c/.../tina-x.y.z/bin"**
 - Press **ctrl+X** and **Y** to save the modifications. 
 - To activate the changes in the current shell, you have to "source" the updated bash_profile file. You do this with the command: **source ~/.bash_profile**
 - To check if the directories are in PATH, type: echo $PATH
