@@ -26,13 +26,15 @@ You will need a Linux distribution to run the scripts. If you don't use Linux, y
 
 Now, you have to install FRAC/TINA/SELT. Follow the steps:
 
-- Download the 32- or 64-bit version of the file frac.x.y.z.linux.tar.gz from this site http://projects.laas.fr/fiacre/download.php. Also download the file tina.x.y.z.linux.tar.gz from http://projects.laas.fr/tina/download.php
+- Download the 32- or 64-bit version of the file frac.x.y.z.linux.tar.gz from this site http://projects.laas.fr/fiacre/download.php. Also download the file tina.x.y.z.linux.tar.gz from http://projects.laas.fr/tina/download.php. Note: *x.y.z* is the current version of the files
 - Move the two files to a folder of your choice
 - Inside the folder, open a Power Shell in admin mode (shortcut: Alt+F+S+A)
 ![t1](https://user-images.githubusercontent.com/50747436/83030018-bcbeeb80-a009-11ea-9456-3ee59b1abe42.png)
 - Type BASH at the command line to start ubuntu 
 - Unzip using the *tar* command: *tar -xf archive.tar.gz*
-- Enter the frac-.x.y.z folder and open the Makefile file in a text editor. Replace the FRACLIB variable with: FULLPATH/lib
+- Enter the frac-.x.y.z folder and open the Makefile file in a text editor. Replace the FRACLIB variable with: /mnt/c/...frac-x.y.z/lib
+![t2](https://user-images.githubusercontent.com/50747436/83031607-268bc500-a00b-11ea-96bf-1f324b758aaa.PNG)
+
 
 ## How to run the scripts?
 
