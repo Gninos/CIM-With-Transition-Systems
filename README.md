@@ -22,19 +22,23 @@ You will need a Linux distribution to run the scripts. If you don't use Linux, y
 - Restart the computer
 - Access the Windows Store and install one of the Ubuntu Versions
 - Wait for the installation. After the installation is complete, follow the prompt to enter the username and password. After that, you are ready to run your linux commands.
-- Try first *sudo apt-get update && apt-get upgrade*
+- Updates the list of packages and programs that can be installed on the machine by typing: *sudo apt-get update && apt-get upgrade*
 
 Now, you have to install FRAC/TINA/SELT. Follow the steps:
 
-- Download
+- Download the 32- or 64-bit version of the file frac.x.y.z.linux.tar.gz from this site http://projects.laas.fr/fiacre/download.php. Also download the file tina.x.y.z.linux.tar.gz from http://projects.laas.fr/tina/download.php
+- Move the two files to a folder of your choice
+- Inside the folder, open a Power Shell in admin mode (shortcut: Alt+F+S+A);
+- Type BASH at the command line to start ubuntu; 
+- Unzip using the *tar* command: *tar -xf archive.tar.gz*
+- 
 
 ## How to run the scripts?
 
 To compile the Fiacre scripts (.fcr files), do the following steps:
 
 - Access the folder containing the file 'script.sh'; 
-- Open a Power Shell in admin mode (shortcut: Alt+F+S+A);
-- Type BASH at the command line to start ubuntu; 
+
 - Type './script.sh file_name.fcr' without ''
 
 After compilation, several files will be generated. The main files are a .tts folder (with petri net and time logic files), a .ktz file (this one generates the reachability graph data), and info.txt (it contains all the state and transition information you will need). The other files are .txt files that will be used to generate views in Python.
