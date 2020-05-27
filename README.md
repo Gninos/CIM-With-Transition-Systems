@@ -38,11 +38,13 @@ Now, you have to install FRAC/TINA/SELT. Follow the steps:
 
 - Now, go to your home directory (/home/user), by typing: cd ~
 - Type: *sudo nano ~/.bash_profile*
-- Add the frac directory to your PATH environment variable by adding the following line to the end of the file: *export PATH="$PATH:/mnt/c/.../frac-x.y.z"*
+- Add the frac and Tina directory to your PATH environment variable by adding the following lines to the end of the file: *export PATH="$PATH:/mnt/c/.../frac-x.y.z"* and *export PATH="$PATH:/mnt/c/Users/georg/Documents/Fiacre/tina-3.5.0/bin"*
 - Press *ctrl+X* and *Y* to save the modification. 
 - To activate the changes in the current shell, you have to "source" the updated bash_profile file. You do this with the command: *source ~/.bash_profile*
-- To check if the directory is in PATH, type: echo $PATH
-- Type *frac -h* to test if frac is working. If you make a mistake, redo the steps.
+- To check if the directories are in PATH, type: echo $PATH
+- Type *frac -h* and *tina -h* to test if both are working. If you make a mistake, redo the steps.
+- Now, you need to intall The GNU Compiler Collection (GCC). GCC is a collection of compilers and libraries for C and C++. First type *sudo apt install build-essential*, and, then *sudo apt-get install manpages-dev*
+- To validate that the GCC compiler is successfully installed, use the gcc --version command which prints the GCC version
 
 ## How to run the scripts?
 
