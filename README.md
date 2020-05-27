@@ -34,7 +34,8 @@ Now, you have to install FRAC/TINA/SELT. Follow the steps:
 - Unzip using the *tar* command: *tar -xf archive.tar.gz*
 - Enter the frac-.x.y.z folder and open the Makefile file in a text editor. Replace the FRACLIB variable with: /mnt/c/...frac-x.y.z/lib
 
-![t2](https://user-images.githubusercontent.com/50747436/83032987-ef1e1800-a00c-11ea-8134-263874783948.png)
+![t2](https://user-images.githubusercontent.com/50747436/83033249-415f3900-a00d-11ea-91fd-22c155012a09.png)
+
 
 
 ## How to run the scripts?
