@@ -30,9 +30,9 @@ Now, you have to install FRAC/TINA/SELT. Follow the steps:
 - Move the two files to a folder of your choice
 - Inside the folder, open a Power Shell in admin mode (shortcut: Alt+F+S+A)
 ![t1](https://user-images.githubusercontent.com/50747436/83030018-bcbeeb80-a009-11ea-9456-3ee59b1abe42.png)
-- Type BASH at the command line to start ubuntu 
-- Unzip using the *tar* command: *tar -xf archive.tar.gz*
-- Enter the frac-.x.y.z folder and open the Makefile file in a text editor. Replace the FRACLIB variable with: /mnt/c/...frac-x.y.z/lib
+- Type **BASH** at the command line to start ubuntu 
+- Unzip using the *tar* command: **tar -xf archive.tar.gz**
+- Enter the frac-.x.y.z folder and open the Makefile file in a text editor. Replace the FRACLIB variable with: **/mnt/c/...frac-x.y.z/lib**
 
 ![t2](https://user-images.githubusercontent.com/50747436/83033249-415f3900-a00d-11ea-91fd-22c155012a09.png)
 
