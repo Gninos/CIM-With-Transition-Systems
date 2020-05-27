@@ -42,7 +42,7 @@ Now, you have to install FRAC/TINA/SELT. Follow the steps:
 - Press **ctrl+X** and **Y** to save the modifications. 
 - To activate the changes in the current shell, you have to "source" the updated bash_profile file. You do this with the command: **source ~/.bash_profile**
 - To check if the directories are in PATH, type: echo $PATH
-- Type **frac -h** and **tina -h** to test if both are working. If you make a mistake, redo the steps.
+- Type **frac -h** and **tina -h** to test if both are working.
 - Now, you need to intall The GNU Compiler Collection (GCC). GCC is a collection of compilers and libraries for C and C++. First type **sudo apt install build-essential**, and, then **sudo apt-get install manpages-dev**
 - To validate that the GCC compiler is successfully installed, use the **gcc --version** command which prints the GCC version
 
