@@ -18,11 +18,11 @@ You will need a Linux distribution to run the scripts. If you don't use Linux, y
 
 - Click Start > Search for "Windows Update".
 - Click on "For developers" and activate "Developer Mode". Click Yes to accept the change;
-- Open the power shell in administrator mode and type: *Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux*
+- Open the power shell in administrator mode and type: **_Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux_**
 - Restart the computer
 - Access the Windows Store and install one of the Ubuntu Versions
 - Wait for the installation. After the installation is complete, follow the prompt to enter the username and password. After that, you are ready to run your linux commands.
-- Updates the list of packages and programs that can be installed on the machine by typing: *sudo apt-get update && apt-get upgrade*
+- Updates the list of packages and programs that can be installed on the machine by typing: **sudo apt-get update && apt-get upgrade**
 
 Now, you have to install FRAC/TINA/SELT. Follow the steps:
 
