@@ -1,4 +1,4 @@
-# CAV-Intersection-With-Model-Checking
+# Cooperative-Intersection-Management-With-Model-Checking
 
 ## Introduction
 
