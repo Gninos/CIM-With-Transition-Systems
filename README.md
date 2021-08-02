@@ -6,7 +6,7 @@ This project implements an Cooperative Intersection Management (CIM) for Automat
 
 To execute the specifications of the model, we use the model checking toolkit FRAC/TINA/SELT, mainly due to the ability of the TINA toolbox to perform a dynamic verification of properties and to create a reachability graph up to a predetermined limit. First, Initially, the FRAC compiler, using a model written in the Fiacre language (http://projects.laas.fr/fiacre/papers.php), generates several branches with all possible combinations of states and transitions in a TTS. These branches behave like parallel paths to reach the same final state (empty control grid), defined by means of a Linear Temporal Logic (LTL). Then, the TINA Toolbox (http://projects.laas.fr/tina/) uses TTS files to create the state space in a compressed binary format (*.ktz*) for a Kripke Transition System. This *.ktz* file, together with the LTL property previously generated, is the input variable of the State-Space Linear Temporal Logic (SELT) model checker, responsible for verifying whether the final state has been reached. These steps ensure that the design presents safe paths for CAVs that are in the control area of a CIM. 
 
-All this data is treated with the aid of the Python language, which transformsstates into nodes, and transitions into edges, to serve as inputs for the graph analysislibrary called NetworkX (https://networkx.github.io/documentation/stable/index.html). This Python package allows the creation, manipulation, andstudy of structures, dynamics, and functions of complex networks. Using the Dijkstra algorithm, NetworkX filters only the paths with fewer transitions, that is, those configu-rations with less overall time to pass through the intersection. After these steps, thereis a guarantee of deadlock-free, safe crossing, and efficiency in terms of travel time.
+All this data is treated with the aid of the Python language, which transforms states into nodes, and transitions into edges, to serve as inputs for the graph analysis library called NetworkX (https://networkx.github.io/documentation/stable/index.html). This Python package allows the creation, manipulation, andstudy of structures, dynamics, and functions of complex networks. Using the Dijkstra algorithm, NetworkX filters only the paths with fewer transitions, that is, those configu-rations with less overall time to pass through the intersection. After these steps, thereis a guarantee of deadlock-free, safe crossing, and efficiency in terms of travel time.
 
 The process steps are shown below.
 
@@ -46,21 +46,30 @@ Now, you have to install FRAC/TINA/SELT. Follow the steps:
 - Now, you need to intall The GNU Compiler Collection (GCC). GCC is a collection of compilers and libraries for C and C++. First type **sudo apt install build-essential**, and, then **sudo apt-get install manpages-dev**
 - To validate that the GCC compiler is successfully installed, use the **gcc --version** command which prints the GCC version
 
-## How to run the scripts?
+## How to run the Fiacre scripts?
 
 To compile the Fiacre scripts (*.fcr* files), do the following steps:
 
-- Access the folder containing the file 'script.sh'; 
+- Access the folder containing the file 'script.sh' (Explanation below. More details in: http://projects.laas.fr/fiacre/doc/usage.html); 
 
-
+![scriptbash](https://user-images.githubusercontent.com/50747436/127790261-963191c2-71aa-4c62-9b41-3bebb14a25e5.png)
 
 - Type './script.sh file_name.fcr' without ''
 
-After compilation, several files will be generated. The main files are a *.tts* folder (with petri net and time logic files), a *.ktz* file (this one generates the reachability graph data), and *info.txt* (it contains all the state and transition information you will need). The other files are *.txt* files that will be used to generate views in Python.
+After compilation, several files will be generated. The main files are a *.tts* folder (with petri net and time logic files), a *.ktz* file (this one generates the reachability graph data), *info.txt* (it contains all the state and transition information you will need) and *reach_graph.txt* (reachability graph data as a *.txt* file). The other *.txt* files that will be used to generate views in Python.
 
 ## The model
 
-Basically, all Fiacre models have an 8x8 array grid as you can see below:
+Basically, all Fiacre models have an 8x8 array grid. All tests are performed on cross-shaped crosses, where only 48 square and discrete cells are considered in the modeling. It is assumed that the cells have areas capable of supporting the measurements of a regular car. Two scenarios are used:
 
+- Scenario 1 - intersection of four vehicle streams coming from north, south, east and west.
 
+- Scenario 2 - intersection of a main one-way avenue going west-east and a secondary avenue with two-way road going north-south, which can be routed to the main road. 
 
+![grids](https://user-images.githubusercontent.com/50747436/127790759-73dc4b70-d29c-4ab5-acfd-8fd22ed14699.PNG)
+
+To test the use of space in Scenarios 1 and 2, it was decided to make a comparison between two different reserve models: Flexible (reservations have few lane change restrictions, according to the research hypothesis) and Conventional (strict movements to traditional paths , in accordance with traffic laws, and without the possibility of changing between lanes). More details about how the model works are described in the scripts comments.
+
+## Data analysis with Python
+
+The *graphs_networkX - All Paths.py* file uses *info.txt*, *reach_graph.txt* and *init.txt* files as input arguments to parse shortest paths to the desired final state. Dijkstra's method is present in NetworkX routines, in the *shortest_path*(G, source, target, method='dijkstra') and *all_shortest_path*(G, source, target, method='dijkstra') functions, where *G* stores the nodes and the graph arcs, *source* indicates the node with the initial condition, and *target* is the node to be reached. While *shortest_path* returns a single list of nodes that belong to one of the shortest paths from source to destination, *all_shortest_path* builds a Python *generator*, which doesn't return a single value, instead generating an iterator object with a sequence of values, corresponding to all paths between the source and the destination. More details are described in the scripts comments. 
