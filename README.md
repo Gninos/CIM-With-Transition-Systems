@@ -68,7 +68,9 @@ Basically, all Fiacre models have an 8x8 array grid. All tests are performed on 
 
 ![grids](https://user-images.githubusercontent.com/50747436/127790759-73dc4b70-d29c-4ab5-acfd-8fd22ed14699.PNG)
 
-To test the use of space in Scenarios 1 and 2, it was decided to make a comparison between two different reserve models: Flexible (reservations have few lane change restrictions, according to the research hypothesis) and Conventional (strict movements to traditional paths , in accordance with traffic laws, and without the possibility of changing between lanes). More details about how the model works are described in the scripts comments.
+To test the use of space in Scenarios 1 and 2, it was decided to make a comparison between two different reserve models: Flexible (reservations have few lane change restrictions, as shown in the right figure below) and Conventional (strict movements to traditional paths , in accordance with traffic laws, and without the possibility of changing between lanes, as shown in the left figure below). More details about how the model works are described in the scripts comments.
+
+![image](https://user-images.githubusercontent.com/50747436/127791241-fd968220-9066-4882-94f4-cb94984d9f02.png)
 
 ## Data analysis with Python
 
