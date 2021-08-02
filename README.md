@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This project implements an Cooperative Intersection Management (CIM) for Connected and Automatized Vehicles (CAVs).  It aims to assess a more flexible use of intersection areas in urban traffic by CAVs. For this, the idea is to build state space abstractions by using Time Transition System (TTS) to execute the specifications of a CIM. In this way, each state represents a secure configuration of the intersection zone with no car crashes, and each state transitions represent different decision-making options. 
+This project implements an Cooperative Intersection Management (CIM) for Automatized Vehicles (AVs).  It aims to assess a more flexible use of intersection areas in urban traffic by AVs. For this, the idea is to build state space abstractions by using Time Transition System (TTS) to execute the specifications of a CIM. In this way, each state represents a secure configuration of the intersection zone with no car crashes, and each state transitions represent different decision-making options. 
 
 To execute the specifications of the model, we use the model checking toolkit FRAC/TINA/SELT, mainly due to the ability of the TINA toolbox to perform a dynamic verification of properties and to create a reachability graph up to a predetermined limit. First, Initially, the FRAC compiler, using a model written in the Fiacre language (http://projects.laas.fr/fiacre/papers.php), generates several branches with all possible combinations of states and transitions in a TTS. These branches behave like parallel paths to reach the same final state (empty control grid), defined by means of a Linear Temporal Logic (LTL). Then, the TINA Toolbox (http://projects.laas.fr/tina/) uses TTS files to create the state space in a compressed binary format (*.ktz*) for a Kripke Transition System. This *.ktz* file, together with the LTL property previously generated, is the input variable of the State-Space Linear Temporal Logic (SELT) model checker, responsible for verifying whether the final state has been reached. These steps ensure that the design presents safe paths for CAVs that are in the control area of a CIM. 
 
@@ -48,13 +48,15 @@ Now, you have to install FRAC/TINA/SELT. Follow the steps:
 
 ## How to run the scripts?
 
-To compile the Fiacre scripts (.fcr files), do the following steps:
+To compile the Fiacre scripts (*.fcr* files), do the following steps:
 
 - Access the folder containing the file 'script.sh'; 
 
+
+
 - Type './script.sh file_name.fcr' without ''
 
-After compilation, several files will be generated. The main files are a .tts folder (with petri net and time logic files), a .ktz file (this one generates the reachability graph data), and info.txt (it contains all the state and transition information you will need). The other files are .txt files that will be used to generate views in Python.
+After compilation, several files will be generated. The main files are a *.tts* folder (with petri net and time logic files), a *.ktz* file (this one generates the reachability graph data), and *info.txt* (it contains all the state and transition information you will need). The other files are *.txt* files that will be used to generate views in Python.
 
 ## The model
 
