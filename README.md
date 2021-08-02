@@ -74,7 +74,9 @@ To test the use of space in Scenarios 1 and 2, it was decided to make a comparis
 
 ## Data analysis with Python
 
-The *graphs_networkX - All Paths.py* file uses *info.txt*, *reach_graph.txt* and *init.txt* files as input arguments to parse shortest paths to the desired final state. Dijkstra's method is present in NetworkX routines, in the *shortest_path*(G, source, target, method='dijkstra') and *all_shortest_path*(G, source, target, method='dijkstra') functions, where *G* stores the nodes and the graph arcs, *source* indicates the node with the initial condition, and *target* is the node to be reached. While *shortest_path* returns a single list of nodes that belong to one of the shortest paths from source to destination, *all_shortest_path* builds a Python *generator*, which doesn't return a single value, instead generating an iterator object with a sequence of values, corresponding to all paths between the source and the destination. More details are described in the scripts comments. 
+The *graphs_networkX - All Paths.py* file uses *info.txt*, *reach_graph.txt* and *init.txt* files as input arguments to parse shortest paths to the desired final state. Dijkstra's method is present in NetworkX routines, in the *shortest_path*(G, source, target, method='dijkstra') and *all_shortest_path*(G, source, target, method='dijkstra') functions, where *G* stores the nodes and the graph arcs, *source* indicates the node with the initial condition, and *target* is the node to be reached. 
+
+While *shortest_path* returns a single list of nodes that belong to one of the shortest paths from source to destination, *all_shortest_path* builds a Python *generator*, which doesn't return a single value, instead generating an iterator object with a sequence of values, corresponding to all paths between the source and the destination. More details are described in the scripts comments. 
 
 ## Other Examples
 
