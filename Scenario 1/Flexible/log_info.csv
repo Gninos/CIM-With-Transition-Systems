@@ -1,0 +1,7 @@
+log_info
+Number of States: 214502
+Number of Transitions: 331534
+Total of paths that find the target: 298176
+Number of states that represent a completed round: 137
+Least number of steps until cars exit the intersection: 39
+Least number of rounds until cars exit the intersection: 7

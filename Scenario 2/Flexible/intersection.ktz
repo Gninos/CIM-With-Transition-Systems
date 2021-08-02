@@ -1,0 +1,5 @@
+# net process_intersection_1, 2 places, 28 transitions, 56 arcs        #
+# bounded, not live, not reversible                                    #
+# abstraction        count      props      psets       dead       live #
+#      states       198195          0          ?       2407       2407 # 
+# transitions       323354         28          ?          5          0 #

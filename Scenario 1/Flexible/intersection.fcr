@@ -1,0 +1,288 @@
+/* INSTRUCTION FOR USE:
+
+- Make sure the script.sh file is in the same directory as intersection.fcr
+- You must change the constants "n", "MAX" and "v" as needed
+- You must change the variables "px", "py" and "a" as needed
+- "px" and "py" must be in accordance with the car's positions in the "a" matrix
+- Fiacre indexes start at "0". So, the first car will make its decision when t is equal to "0",
+  and the last one when t is equal to "n-1"
+- In the Linux shell, type "./script.sh intersection" and press Enter
+
+*/
+/* --------------------CONSTANTS-------------------- */
+type uint_8bit is 0..254
+
+const n   : uint_8bit is 8  /* Number of cars in intersection control area - Must be changed as needed*/
+const m   : uint_8bit is 7  /* Grid Size = m+1 x m+1 Matrix*/
+
+/* -----------------VARIABLES TYPES----------------- */
+/* Setting a type of variable that comprises the range of x and y positions */
+type RangeYX is 0..m
+
+/* Setting a type of variable that comprises the range of CAVs, starting at 0*/
+type RangeN is 0..n-1
+
+/* Setting a type of variable that stores the information about the position index */
+type ArrayN is array n of RangeYX
+
+/* Setting a type of variable to store information about the CAVs */ 
+type Cars is array n of uint_8bit
+
+/* ------------------ SPECIAL CONSTANT - Must be changed as needed----------------- */
+/* "v" is a constant array that sets a number for each car by using the "Cars Type".
+Also, "v" must be composed only by the numbers 2, 3, 4 and 5, which correspond to the cars 
+that leave the roads A, B, C and D respectively. 
+
+It determines the order of priority in which the cars will decide their movements.
+Obs: "v" must be modified when the number of cars is increased. 
+
+    <first to decide -------------last to decide> */
+/* flag_1 */
+const v : Cars is [1,2,3,4,1,2,3,4]
+/* flag_2 */
+
+/* --------------------FUNCTIONS-------------------- */
+/*  This function returns the x an y coordinates of each car */
+
+function coordinate (ti : RangeN, pxi : ArrayN, pyi : ArrayN) : array 2 of RangeYX is
+  var xi: RangeYX := 0, yi: RangeYX := 0
+  begin
+        xi := pxi[ti]; yi := pyi[ti];
+        return [xi, yi]
+  end
+
+/*  This function returns the number that identify each car based on constant "v". 
+    This information will be used in the "road" function to identify the origin of the car. 
+    It reads the priority car id on turn t, passed as an argument of the function, then it makes a lookup in the vector "v" */
+
+function cav (ti : RangeN) : uint_8bit is
+  var vi: uint_8bit := 0
+  begin
+      vi := v[ti];
+      return vi
+  end
+
+/*  This function returns the number of the road on which the priority car starts
+  A = 1, B = 2, C = 3, D = 4. It reads the priority car number on vector "v", passed as an argument of the function, then it identifies the origin road of the car by using conditional decision */
+
+function road (vi : uint_8bit) : uint_8bit is
+  var ri: uint_8bit := 0
+  begin
+      if vi = 1 then 
+        ri := 1;
+        return ri
+      elsif vi = 2 then 
+        ri := 2;
+        return ri
+      elsif vi = 3 then 
+        ri := 3;
+        return ri
+      elsif vi = 4 then 
+        ri := 4;
+        return ri
+      else
+        return ri
+      end
+  end
+
+/*  This function returns the id of the car that will make the next movement decision. First, it reads the x and y positions of the car in turn "t", passed as an argument of the function. If both x and y indices indicate that this car has already left the grid, then t dynamically updates to the next car at the priority that is still on the grid.*/
+
+function dyn (ti: RangeN, pxi : ArrayN, pyi : ArrayN) : RangeN is
+  var tt: RangeN:= ti
+  begin
+    while pxi[tt] = 7 and pyi[tt] = 7 and tt < n-1 do /* Analyzes cars from 1 to n-1 on the priority list */
+      tt := tt + 1
+    end;
+    while pxi[tt] = 7 and pyi[tt] = 7 and tt = n-1 do /* Analyzes the last car on the priority list */
+      tt := 0
+    end;
+    while pxi[tt] = 7 and pyi[tt] = 7 and tt < n-1 do /* Analyzes cars from 1 to n-1 on the priority list */
+      tt := tt + 1
+    end;
+    return tt
+  end
+
+/*  This function creates a vector "oo" of size n where all elements are the number 7, "oo" = [7,...,7,...,7], because it will be used as a comparison flag for the px[n] and py[n] positions. When all px[n] and py[n] are equal to "oo", that means that all cars left the grid*/
+
+function oo () : ArrayN is
+  var oi: ArrayN, i: RangeN:=0
+  begin
+     foreach i do oi[i] := 7 end;
+     return oi
+  end
+
+/* ---------------------PROCESS--------------------- */
+/* Intersection Process: CAVs can go forward and diagonally */
+
+process intersection is
+   states move, done                         
+   var  
+       
+       x   : RangeYX,                                		   /*      x coordinate     */  
+       y   : RangeYX,                                		   /*      y coordinate     */
+       t   : RangeN  := 0,                           		   /*       cavs turns      */
+       taux: RangeN,                                 		   /* auxiliary cavs turns  */
+       pos : array 2 of RangeYX,              		           /*    coordinate pairs   */
+       va  : uint_8bit,                              		   /*     cavs id number    */
+       r   : uint_8bit,                              		   /*       road number     */
+       o   : ArrayN,                                           /* Desirable final state -> o = [7, 7,...,7,...,7] */
+       
+
+       px  : ArrayN  := [2,3,5,6,2,0,4,7],       /*  x positions indices  */
+       py  : ArrayN  := [3,4,6,2,1,5,6,3],       /*  y positions indices  */
+       
+       /* Intersection - "a" Matrix - Number meanings:
+          0 = street cells with no car;
+          1 = sidewalk cells;
+          2 = cells with a car that started on road A;
+          3 = cells with a car that started on road B;
+          4 = cells with a car that started on road C;
+          5 = cells with a car that started on road D */
+
+                                                      /* A */     
+       a   : array 8 of array 8 of uint_8bit := [[6,6,1,0,0,0,6,6], 
+                                                 [6,6,1,0,0,0,6,6],
+                                                 [0,0,0,0,0,0,4,0], 
+                                         /* B */ [0,0,1,0,0,0,0,4], /* D */
+                                                 [0,0,0,2,0,0,0,0],
+                                                 [2,0,0,0,0,0,0,0],
+                                                 [6,6,0,0,3,3,6,6],
+                                                 [6,6,0,0,0,0,6,6]]
+                                                      /* C */
+                                                
+                                                
+   from move
+      o   := oo(); /* "o" sets the comparison flag to identify when the final state is achieved */
+      taux:= dyn(t, px, py);  /* "taux" selects the a priority car that is still on the road */
+      pos := coordinate(taux,px,py); /* "pos" search the x an y coordinates of the priority car */
+      x   := pos[0]; /* "x" selects the x position of the priority car */
+      y   := pos[1]; /* "y" selects the y position of the priority car */
+      va  := cav(taux);  /* "va" identifies the originating road of the priority car */
+      r   := road(va); /* "y" identifies the originating road of the priority car */
+
+      /* The "select" statement makes non-deterministic choices of transitions, considering only statements for which all conditions hold.*/
+
+      select
+
+      /* Condition when all are cars off the grid. That is, both px and py are equal to [7, 7,...,7,...,7]. Thus, the "done" instance is reached. */
+         on px = o and py = o; t:=0; to done 
+
+      /* Condition where cars starting at A and having C as their destination (A -> C) are one step away from the area of influence of the central intersection unit. */
+
+      [] on a[y][x] = 1 and y = m-1 and (x = 2 or x = 3);
+         a[y][x] := 0; py[taux]:=7; px[taux]:=7; if taux < n-1 then t := taux + 1 else t := 0 end;
+         to move
+
+      /* Condition where cars starting at B and having D as their destination (B -> D) are one step away from the area of influence of the central intersection unit. */
+         
+      [] on a[y][x] = 2 and x = m-1 and (y = 4 or y = 5);
+         a[y][x] := 0; py[taux]:=7; px[taux]:=7; if taux < n-1 then t := taux + 1 else t := 0 end;
+         to move
+      
+      /* Condition where cars starting at C and having A as their destination (C -> A) are one step away from the area of influence of the central intersection unit. */
+
+      [] on a[y][x] = 3 and y = 1 and (x = 4 or x = 5);
+         a[y][x] := 0; py[taux]:=7; px[taux]:=7; if taux < n-1 then t := taux + 1 else t := 0 end;
+         to move
+    
+      /* Condition where cars starting at D and having B as their destination (D -> B) are one step away from the area of influence of the central intersection unit. */
+
+      [] on a[y][x] = 4 and x = 1 and (y = 2 or y = 3);
+         a[y][x] := 0; py[taux]:=7; px[taux]:=7; if taux < n-1 then t := taux + 1 else t := 0 end;
+         to move
+      
+
+      /* Car movements - Basically, the following conditions check whether the destination and origin correspond to the car being checked and whether the cells in front of it and diagonally are empty. If so, the cars move in these directions. 
+      The positions in "px", "py" and "a", and the value of "t" are updated. */   
+   
+      /* A -> C - Cars may move forward (1 or 2 steps) and diagonally. No turn allowed*/
+      
+      /* Forward + 1*/
+      [] on ((y < 4) or (y = 4 and (x = 2 or x = 3 or x =4)) or (y = 5 and (x = 2 or x =3))) and a[y][x] = va and a[y+1][x] = 0 and r = 1;
+            a[y+1][x]:=va; a[y][x]:=0; py[taux]:=y+1; if taux < n-1 then t := taux + 1 else t := 0 end;
+            to move
+
+      /* Forward + 2*/      
+      [] on ((y < 3) or (y = 3 and (x = 2 or x = 3 or x =4)) or (y = 4 and (x = 2 or x =3))) and a[y][x] = va and a[y+1][x] = 0 and a[y+2][x] = 0 and r = 1;
+            a[y+2][x]:=va; a[y][x]:=0; py[taux]:=y+2; if taux < n-1 then t := taux + 1 else t := 0 end;
+            to move
+                      
+      /* Diagonal y + 1, x - 1*/
+      [] on ((y < 5 and x > 2) or (y = 5 and (x = 3 or x =4))) and a[y][x] = va and a[y+1][x-1] = 0 and r =1;
+            a[y+1][x-1]:=va; a[y][x]:=0; py[taux]:=y+1; px[taux]:=x-1; if taux < n-1 then t := taux + 1 else t := 0 end;
+            to move
+      
+      /* Diagonal y + 1, x + 1*/
+      [] on ((y < 4 and x < 5) or (y = 4 and (x = 2 or x =3)) or (y = 5 and x = 2)) and a[y][x] = va and a[y+1][x+1] = 0 and r =1;
+            a[y+1][x+1]:=va; a[y][x]:=0; py[taux]:=y+1; px[taux]:=x+1; if taux < n-1 then t := taux + 1 else t := 0 end;
+            to move
+      
+      /* B -> D - Secondary road. Cars may move forward (only 1 step) and diagonally. No turn allowed */
+      
+      /* Forward + 1*/    
+      [] on ((x < 4) or (x = 4 and (y = 3 or y = 4 or y =5)) or (x = 5 and (y = 4 or y =5))) and a[y][x] = va and a[y][x+1] = 0 and r =2;
+            a[y][x+1]:=va; a[y][x]:=0; px[taux]:=x+1; if taux < n-1 then t := taux + 1 else t := 0 end;
+            to move
+               
+      /* Diagonal y - 1, x + 1*/
+      [] on ((x < 4 and y > 2) or (x = 4 and (y = 4 or y =5)) or (x = 5 and y = 4)) and a[y][x] = va and a[y-1][x+1] = 0 and r =2;
+            a[y-1][x+1]:=va; a[y][x]:=0; py[taux]:=y-1; px[taux]:=x+1; if taux < n-1 then t := taux + 1 else t := 0 end;
+            to move
+       
+      /* Diagonal y + 1, x + 1*/
+      [] on ((x < 5 and y < 5) or (x = 5 and (y = 3 or y =4))) and  a[y][x] = va and a[y+1][x+1] = 0 and r =2;
+            a[y+1][x+1]:=va; a[y][x]:=0; py[taux]:=y+1; px[taux]:=x+1; if taux < n-1 then t := taux + 1 else t := 0 end;
+            to move     
+  
+      /* C -> A - Priority road. Cars may move forward (1 or 2 steps) and diagonally. No turn allowed*/
+      
+      /* Forward +1 */
+
+      [] on ((y > 3) or (y = 3 and (x = 3 or x = 4 or x =5)) or (y = 2 and (x = 4 or x =5))) and a[y][x] = va and a[y-1][x] = 0 and r =3;
+            a[y-1][x]:=va; a[y][x]:=0; py[taux]:=y-1;  if taux < n-1 then t := taux + 1 else t := 0 end;
+            to move
+
+      /* Forward + 2*/
+
+      [] on ((y > 4) or (y = 4 and (x = 3 or x = 4 or x =5)) or (y = 3 and (x = 4 or x =5))) and a[y][x] = va and a[y-1][x] = 0 and a[y-2][x] = 0 and r =3;
+            a[y-2][x]:=va; a[y][x]:=0; py[taux]:=y-2;  if taux < n-1 then t := taux + 1 else t := 0 end;
+            to move
+           
+      /* Diagonal y -1, x - 1*/
+      [] on ((y > 3 and x > 2) or (y = 3 and (x = 4 or x =5)) or (y = 2 and x = 5)) and a[y][x] = va and a[y-1][x-1] = 0 and r =3;
+            a[y-1][x-1]:=va; a[y][x]:=0; py[taux]:=y-1; px[taux]:=x-1; if taux < n-1 then t := taux + 1 else t := 0 end;
+            to move
+      
+      /* Diagonal y -1, x + 1*/
+      [] on ((y > 2 and x < 5) or (y = 2 and (x = 3 or x =4))) and a[y][x] = va and a[y-1][x+1] = 0 and r =3;
+            a[y-1][x+1]:=va; a[y][x]:=0; py[taux]:=y-1; px[taux]:=x+1; if taux < n-1 then t := taux + 1 else t := 0 end;
+            to move
+        
+      /* D -> B - Secondary road.  Cars may move forward (only 1 step) and diagonally. No turn allowed */
+      
+      /* Forward + 1*/
+      [] on ((x > 3) or (x = 3 and (y = 2 or y = 3 or y =4)) or (x = 2 and (y = 2 or y =3))) and a[y][x] = va and a[y][x-1] = 0 and r = 4;
+            a[y][x-1]:=va; a[y][x]:=0; px[taux]:=x-1;  if taux < n-1 then t := taux + 1 else t := 0 end;
+            to move
+    
+      /* Diagonal y -1, x - 1*/
+      [] on ((x > 2 and y > 2) or (x = 2 and (y = 3 or y =4))) and a[y][x] = va and a[y-1][x-1] = 0 and r = 4;
+            a[y-1][x-1]:=va; a[y][x]:=0; py[taux]:=y-1; px[taux]:=x-1;  if taux < n-1 then t := taux + 1 else t := 0 end;
+            to move
+     
+      /* Diagonal y +1, x - 1*/
+      [] on ((x > 3 and y < 5) or (x = 3 and (y = 2 or y =3)) or (x = 2 and y = 2)) and a[y][x] = va and a[y+1][x-1] = 0 and r = 4;
+            a[y+1][x-1]:=va; a[y][x]:=0; py[taux]:=y+1; px[taux]:=x-1;  if taux < n-1 then t := taux + 1 else t := 0 end;
+            to move
+      end
+
+
+/* Entry point */
+intersection
+
+
+/* Properties */
+
+property target is ltl ([] (intersection/state done))
+assert target
+
