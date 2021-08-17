@@ -1,4 +1,4 @@
-# Cooperative-Intersection-Management-With-Model-Checking
+# Cooperative-Intersection-Management-With-Transition-Systems
 
 ## Introduction
 
